@@ -411,6 +411,9 @@
     <script src="<?php echo base_url(); ?>/assets/js/registro/configuracion.js"></script>
     <script src="<?php echo base_url(); ?>/assets/js/registro/servicio
     .js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="<?php echo base_url(); ?>/assets/js/usuarios/usuario.js"></script>
+    <script src="<?php echo base_url(); ?>/assets/js/guia/guia.js"></script>
     <!-- End custom js for this page -->
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

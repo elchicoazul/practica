@@ -33,32 +33,14 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 
 $routes->get('/', 'Home::index');
-$routes->get('/Usuarios', 'Usuarios::usuario');
-$routes->get('/Productos', 'Productos::producto');
-$routes->get('/Configuracion', 'Configuraciones::configuracion');
-$routes->get('/Servicio', 'Servicios::servicio');
 
-$routes->post('/Productos/registrar', 'Productos::registrar');
-$routes->post('/Configuraciones/registrar', 'Configuraciones::registrar');
-$routes->post('/Servicios/registrar', 'Servicios::registrar');
-$routes->post('/Usuarios/registrar', 'Usuarios::registrar');
+$routes->get('/Guia', 'Guia::index');
 
+$routes->get('/Liquidacion', 'Liquidacion::index');
+$routes->post('/Recepcion/registrarTemp', 'Guia::registrartemp');
+$routes->get('/Recepcion/obtenerDatos', 'Guia::obtenerTodosLosDatos');
+$routes->post('/Recepcion/eliminar/(:any)', 'Guia::eliminar/$1');
+$routes->get('/Recepcion/transferir', 'Guia::transferirDatos');
 
 
 
-/*
- * --------------------------------------------------------------------
- * Additional Routing
- * --------------------------------------------------------------------
- *
- * There will often be times that you need additional routing and you
- * need it to be able to override any defaults in this file. Environment
- * based routes is one such time. require() additional route files here
- * to make that happen.
- *
- * You will have access to the $routes object within that file without
- * needing to reload it.
- */
-if (is_file(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
-    require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
-}
