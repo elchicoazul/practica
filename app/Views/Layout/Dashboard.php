@@ -406,7 +406,15 @@
     <!-- endinject -->
     <!-- Custom js for this page -->
     <script src="<?php echo base_url(); ?>/assets/js/dashboard.js"></script>
-    <script src="<?php echo base_url(); ?>/assets/js/usuarios/usuario.js"></script>
+    <script src="<?php echo base_url(); ?>/assets/js/registro/usuario.js"></script>
+    <script src="<?php echo base_url(); ?>/assets/js/registro/productos.js"></script>
+    <script src="<?php echo base_url(); ?>/assets/js/registro/configuracion.js"></script>
+    <script src="<?php echo base_url(); ?>/assets/js/registro/servicio
+    .js"></script>
     <!-- End custom js for this page -->
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    
   </body>
 </html>
