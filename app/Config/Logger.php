@@ -40,6 +40,7 @@ class Logger extends BaseConfig
      */
     public $threshold = (ENVIRONMENT === 'development') ? 4 : 9;
 
+  
     /**
      * --------------------------------------------------------------------------
      * Date Format for Logs

@@ -3,7 +3,8 @@ CREATE TABLE User (
   id INT AUTO_INCREMENT PRIMARY KEY,
   username VARCHAR(255) NOT NULL,
   role varchar(255) NOT NULL,
-  password VARCHAR(255) NOT NULL,
+  password VARCHAR(255),
+  dni_ruc VARCHAR(255) NOT NULL,
   gold_law DECIMAL(10,2),
   tailings_law DECIMAL(10,2),
   fine_gold_to_deliver DECIMAL(10,2),
@@ -28,7 +29,7 @@ CREATE TABLE Service (
 CREATE TABLE Configuration (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
-  value VARCHAR(255) NOT NULL
+  value DECIMAL(10,2) NOT NULL,
 );
 
 -- Creación de la tabla de Guía de Ingreso
@@ -84,7 +85,9 @@ CREATE TABLE LiquidationDetail (
 CREATE TABLE Product (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
-  price DECIMAL(10,2) NOT NULL
+  price DECIMAL(10,2) NOT NULL,
+  stock varchar(255) Not NULL
+  
   -- Aquí se deben agregar atributos para kárdex si son necesarios.
 );
 
