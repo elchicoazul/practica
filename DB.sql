@@ -32,12 +32,29 @@ CREATE TABLE Configuration (
 );
 
 -- Creación de la tabla de Guía de Ingreso
+CREATE TABLE IngressGuideTemp (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  gross_weight DECIMAL(10, 2),
+  tare_weight DECIMAL(10, 2),
+  sample_weight DECIMAL(10, 2),
+  wet_weight DECIMAL(10, 2),
+  moisture_percentage DECIMAL(5, 2),
+  dry_weight DECIMAL(10, 2),
+  FOREIGN KEY (user_id) REFERENCES User(id)
+);
 CREATE TABLE IngressGuide (
   id INT AUTO_INCREMENT PRIMARY KEY,
   user_id INT NOT NULL,
+  gross_weight DECIMAL(10, 2),
+  tare_weight DECIMAL(10, 2),
+  sample_weight DECIMAL(10, 2),
+  wet_weight DECIMAL(10, 2),
+  moisture_percentage DECIMAL(5, 2),
+  dry_weight DECIMAL(10, 2),
   FOREIGN KEY (user_id) REFERENCES User(id)
-  -- Aquí se deben agregar los campos numéricos según la imagen proporcionada y su respectivo tipo de dato.
 );
+
 
 -- Creación de la tabla de Liquidación
 CREATE TABLE Liquidation (
