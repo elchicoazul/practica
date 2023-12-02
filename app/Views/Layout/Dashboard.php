@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/vendors/css/vendor.bundle.base.css">
     <!-- endinject -->
-    <!-- Plugin css for this page -->
     <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/vendors/jvectormap/jquery-jvectormap.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/vendors/flag-icon-css/css/flag-icon.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/vendors/owl-carousel-2/owl.carousel.min.css">
@@ -417,7 +416,10 @@
     <!-- End custom js for this page -->
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    
+
+    <!--autocomplete script-->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
   </body>
 </html>

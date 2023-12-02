@@ -11,8 +11,10 @@ class Productos extends BaseController
     {
         return view('/registro/Productos');
     }
-    public function registrar() {
-
+    public function registrar()
+    {
+        
+        log_message('info', 'estamos en registraer controlador .');
         $model = new ProductosM();
 
         $datos = [
@@ -22,14 +24,33 @@ class Productos extends BaseController
         ];
 
         $rpta = $model->insertar($datos);
-        
-        if ($rpta>0) {
-            log_message('info', 'Entrando en el método registrar.');
-            return $this->response->setJSON(['estado' => 200, 'mssg' => 'Producto registrado con éxito']);
+
+        if ($rpta > 0) {
+            $productosModel = new ProductosM();
+            $productos = $productosModel->obtenerTodos();
+
+            return $this->response->setJSON(['estado' => 200, 'mssg' => 'Producto registrado con éxito', 'productos' => $productos]);
         } else {
             return $this->response->setJSON(['estado' => 202, 'mssg' => 'Producto no registrado']);
         }
+
     }
 
+    public function obtenerTodos()
+    {
+        $productosModel = new ProductosM();
+        $productos = $productosModel->obtenerTodos();
+        log_message('info', 'estamos en obtenerTodos .');
+        return $this->response->setJSON($productos);
+    }
+
+    public function obtenerProductos()
+    {
+        $productosModel = new ProductosM();
+        $searchTerm = $this->request->getVar('q');
+        $data = $productosModel->obtenerProductos($searchTerm);
+
+        echo json_encode($data);
+    }
 
 }

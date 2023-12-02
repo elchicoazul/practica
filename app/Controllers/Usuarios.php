@@ -46,4 +46,13 @@ class Usuarios extends BaseController
             return $this->response->setJSON(['estado' => 202, 'mssg' => 'Usuario no registrado']);
         }
     }
+    
+    public function obtenerUsuario()
+    {
+        $usuarioModel = new Usuario();
+        $searchTerm = $this->request->getVar('q');
+        $data = $usuarioModel->obtenerUsuarios($searchTerm);
+
+        echo json_encode($data);
+    }
 }
