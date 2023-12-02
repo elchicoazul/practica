@@ -23,12 +23,13 @@ class Database extends Config
 
     /**
      * The default database connection.
-     */
+     */    
     public array $default = [
         'DSN'          => '',
         'hostname'     => 'localhost',
-        'password'     => 'vfcons',
-        'database'     => 'korinto',
+        'username'     => 'root',
+        'password'     => '',
+        'database'     => 'practica',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
         'pConnect'     => false,
@@ -40,7 +41,7 @@ class Database extends Config
         'compress'     => false,
         'strictOn'     => false,
         'failover'     => [],
-        'port'         => 3310,
+        'port'         => 3306,
         'numberNative' => false,
     ];
 

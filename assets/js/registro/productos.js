@@ -42,8 +42,8 @@ function registrarProductos() {
                 dataType: 'json'
             }).done(function (data) {
                 if (data.estado == 200) {
+                    obtenerDatosProductos();
                     swal.fire('Registrado!', data.mssg, 'success');
-
                     // Restablecer los valores de los campos después del registro exitoso
                     $("#name").val('');
                     $("#price").val('');
@@ -56,3 +56,36 @@ function registrarProductos() {
         }
     });
 }
+function obtenerDatosProductos() {
+    
+    $.ajax({
+        url: 'http://localhost/practica/Productos/obtenerTodos',
+        type: "GET",
+        dataType: 'json'
+    }).done(function (datos) {
+        // Limpiar la tabla actual
+        $(".table tbody").empty();
+        // Iterar sobre los datos y añadirlos a la tabla
+        datos.forEach(function (item) {
+            var fila = '<tr>' +
+                '<td>' + item.name + '</td>' +
+                '<td>' + item.price + '</td>' +
+                '<td>' + item.stock + '</td>' +
+                // Agrega más columnas según sea necesario
+                '</tr>';
+            $(".table tbody").append(fila);
+        });
+    });
+}
+
+/*
+$(document).ready(function () {
+    // Llamada inicial para cargar la lista de productos al cargar la página
+    obtenerDatosProductos();
+
+    // Agrega un evento de clic al botón "Registrar" para que también llame a obtenerDatosActualizados.
+    $("#registrarButton").on("click", function () {
+        registrarProductos();
+    });
+});
+*/
