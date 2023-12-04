@@ -1,0 +1,119 @@
+CRITICAL - 2023-12-04 23:12:35 --> Invalid file: "Guia/index.php"
+in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
+ 1 SYSTEMPATH/View/View.php(216): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('Guia/index.php')
+ 2 SYSTEMPATH/Common.php(1190): CodeIgniter\View\View->render('Guia/index', [], true)
+ 3 APPPATH/Controllers/Guia.php(11): view('Guia/index')
+ 4 SYSTEMPATH/CodeIgniter.php(942): App\Controllers\Guia->index()
+ 5 SYSTEMPATH/CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Guia))
+ 6 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-12-04 23:12:58 --> Invalid file: "Guia/index.php"
+in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
+ 1 SYSTEMPATH/View/View.php(216): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('Guia/index.php')
+ 2 SYSTEMPATH/Common.php(1190): CodeIgniter\View\View->render('Guia/index', [], true)
+ 3 APPPATH/Controllers/Guia.php(11): view('Guia/index')
+ 4 SYSTEMPATH/CodeIgniter.php(942): App\Controllers\Guia->index()
+ 5 SYSTEMPATH/CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Guia))
+ 6 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-12-04 23:13:29 --> Invalid file: "Guia/index.php"
+in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
+ 1 SYSTEMPATH/View/View.php(216): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('Guia/index.php')
+ 2 SYSTEMPATH/Common.php(1190): CodeIgniter\View\View->render('Guia/index', [], true)
+ 3 APPPATH/Controllers/Guia.php(11): view('Guia/index')
+ 4 SYSTEMPATH/CodeIgniter.php(942): App\Controllers\Guia->index()
+ 5 SYSTEMPATH/CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Guia))
+ 6 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+INFO - 2023-12-04 23:16:50 --> estamos en registrar
+ERROR - 2023-12-04 23:16:50 --> Error connecting to the database: mysqli_sql_exception: Unknown database 'practica' in /home/loren/Projects/php/practica/system/Database/MySQLi/Connection.php:184
+Stack trace:
+#0 /home/loren/Projects/php/practica/system/Database/MySQLi/Connection.php(184): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'practica', 3306, '', 0)
+#1 /home/loren/Projects/php/practica/system/Database/BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 /home/loren/Projects/php/practica/system/Database/BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/loren/Projects/php/practica/system/Database/BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `us...', Array, false)
+#4 /home/loren/Projects/php/practica/app/Models/Usuario.php(10): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 /home/loren/Projects/php/practica/app/Controllers/Usuarios.php(39): App\Models\Usuario->insertar(Array)
+#6 /home/loren/Projects/php/practica/system/CodeIgniter.php(942): App\Controllers\Usuarios->registrar()
+#7 /home/loren/Projects/php/practica/system/CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Usuarios))
+#8 /home/loren/Projects/php/practica/system/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 /home/loren/Projects/php/practica/index.php(79): CodeIgniter\CodeIgniter->run()
+#10 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Unknown database 'practica' in /home/loren/Projects/php/practica/system/Database/MySQLi/Connection.php:229
+Stack trace:
+#0 /home/loren/Projects/php/practica/system/Database/BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 /home/loren/Projects/php/practica/system/Database/BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/loren/Projects/php/practica/system/Database/BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `us...', Array, false)
+#3 /home/loren/Projects/php/practica/app/Models/Usuario.php(10): CodeIgniter\Database\BaseBuilder->insert(Array)
+#4 /home/loren/Projects/php/practica/app/Controllers/Usuarios.php(39): App\Models\Usuario->insertar(Array)
+#5 /home/loren/Projects/php/practica/system/CodeIgniter.php(942): App\Controllers\Usuarios->registrar()
+#6 /home/loren/Projects/php/practica/system/CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Usuarios))
+#7 /home/loren/Projects/php/practica/system/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /home/loren/Projects/php/practica/index.php(79): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2023-12-04 23:16:50 --> Unable to connect to the database.
+Main connection [MySQLi]: Unknown database 'practica'
+in SYSTEMPATH/Database/BaseConnection.php on line 428.
+ 1 SYSTEMPATH/Database/BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `user` (`username`, `role`, `dni_ruc`, `password`, `gold_law`, `tailings_law`, `fine_gold_to_deliver`, `pine_silver_to_deliver`, `gold_discount`, `silver_discount`) VALUES (:username:, :role:, :dni_ruc:, :password:, :gold_law:, :tailings_law:, :fine_gold_to_deliver:, :pine_silver_to_deliver:, :gold_discount:, :silver_discount:)', [...], false)
+ 3 APPPATH/Models/Usuario.php(10): CodeIgniter\Database\BaseBuilder->insert([...])
+ 4 APPPATH/Controllers/Usuarios.php(39): App\Models\Usuario->insertar([...])
+ 5 SYSTEMPATH/CodeIgniter.php(942): App\Controllers\Usuarios->registrar()
+ 6 SYSTEMPATH/CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Usuarios))
+ 7 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+INFO - 2023-12-04 23:18:52 --> estamos en registrar
+ERROR - 2023-12-04 23:18:52 --> mysqli_sql_exception: Table 'korinto.user' doesn't exist in /home/loren/Projects/php/practica/system/Database/MySQLi/Connection.php:306
+Stack trace:
+#0 /home/loren/Projects/php/practica/system/Database/MySQLi/Connection.php(306): mysqli->query('INSERT INTO `us...', 0)
+#1 /home/loren/Projects/php/practica/system/Database/BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `us...')
+#2 /home/loren/Projects/php/practica/system/Database/BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `us...')
+#3 /home/loren/Projects/php/practica/system/Database/BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `us...', Array, false)
+#4 /home/loren/Projects/php/practica/app/Models/Usuario.php(10): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 /home/loren/Projects/php/practica/app/Controllers/Usuarios.php(39): App\Models\Usuario->insertar(Array)
+#6 /home/loren/Projects/php/practica/system/CodeIgniter.php(942): App\Controllers\Usuarios->registrar()
+#7 /home/loren/Projects/php/practica/system/CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Usuarios))
+#8 /home/loren/Projects/php/practica/system/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 /home/loren/Projects/php/practica/index.php(79): CodeIgniter\CodeIgniter->run()
+#10 {main}
+CRITICAL - 2023-12-04 23:18:52 --> Table 'korinto.user' doesn't exist
+in SYSTEMPATH/Database/BaseConnection.php on line 647.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `user` (`username`, `role`, `dni_ruc`, `password`, `gold_law`, `tailings_law`, `fine_gold_to_deliver`, `pine_silver_to_deliver`, `gold_discount`, `silver_discount`) VALUES (:username:, :role:, :dni_ruc:, :password:, :gold_law:, :tailings_law:, :fine_gold_to_deliver:, :pine_silver_to_deliver:, :gold_discount:, :silver_discount:)', [...], false)
+ 2 APPPATH/Models/Usuario.php(10): CodeIgniter\Database\BaseBuilder->insert([...])
+ 3 APPPATH/Controllers/Usuarios.php(39): App\Models\Usuario->insertar([...])
+ 4 SYSTEMPATH/CodeIgniter.php(942): App\Controllers\Usuarios->registrar()
+ 5 SYSTEMPATH/CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Usuarios))
+ 6 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+INFO - 2023-12-04 23:20:49 --> estamos en registrar
+INFO - 2023-12-04 23:20:49 --> Entrando en el método registrar.
+CRITICAL - 2023-12-04 23:21:06 --> Invalid file: "Guia/index.php"
+in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
+ 1 SYSTEMPATH/View/View.php(216): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('Guia/index.php')
+ 2 SYSTEMPATH/Common.php(1190): CodeIgniter\View\View->render('Guia/index', [], true)
+ 3 APPPATH/Controllers/Guia.php(11): view('Guia/index')
+ 4 SYSTEMPATH/CodeIgniter.php(942): App\Controllers\Guia->index()
+ 5 SYSTEMPATH/CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Guia))
+ 6 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+INFO - 2023-12-04 23:23:12 --> estamos en registraer controlador .
+INFO - 2023-12-04 23:23:12 --> estamos en obtenerTodos .
+CRITICAL - 2023-12-04 23:23:23 --> Invalid file: "Guia/index.php"
+in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
+ 1 SYSTEMPATH/View/View.php(216): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('Guia/index.php')
+ 2 SYSTEMPATH/Common.php(1190): CodeIgniter\View\View->render('Guia/index', [], true)
+ 3 APPPATH/Controllers/Guia.php(11): view('Guia/index')
+ 4 SYSTEMPATH/CodeIgniter.php(942): App\Controllers\Guia->index()
+ 5 SYSTEMPATH/CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Guia))
+ 6 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-12-04 23:24:02 --> Invalid file: "Guia/index.php"
+in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
+ 1 SYSTEMPATH/View/View.php(216): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('Guia/index.php')
+ 2 SYSTEMPATH/Common.php(1190): CodeIgniter\View\View->render('Guia/index', [], true)
+ 3 APPPATH/Controllers/Guia.php(11): view('Guia/index')
+ 4 SYSTEMPATH/CodeIgniter.php(942): App\Controllers\Guia->index()
+ 5 SYSTEMPATH/CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Guia))
+ 6 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
