@@ -85,7 +85,7 @@ function registrarUsuario() {
 
     // Ajax request to register the user
     $.ajax({
-        url: 'http://localhost/practica/Usuarios/registrar', // Replace with your server endpoint
+        url: 'http://localhost:8182/practica/Usuarios/registrar', // Replace with your server endpoint
         type: "POST",
         data: userData,
         dataType: 'json',

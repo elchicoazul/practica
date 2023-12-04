@@ -1,5 +1,9 @@
 <?= $this->extend('Layout/Dashboard'); ?>
 <?= $this->section('content'); ?>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
 <div class="row">
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
@@ -10,38 +14,36 @@
                 <!-- Cliente con botón de búsqueda -->
                 <div class="form-group">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Cliente" aria-label="Cliente">
-                        <div class="input-group-append">
-                            <button class="btn btn-sm btn-primary" type="button">Buscar</button>
-                        </div>
+                    <select class="form-control js-example-basic-single" id="cliente" placeholder="Cliente" style="height: 100px;"></select>
+                    <input type="text" class="form-control" id="codigo" placeholder="Código" aria-label="Código">
                     </div>
                 </div>
 
                 <!-- Código -->
                 <div class="form-group">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Código" aria-label="Código">
+                        <input type="text" class="form-control" id="codigo_guia" placeholder="Código" aria-label="Código">
                     </div>
                 </div>
 
                 <!-- Fecha -->
                 <div class="form-group">
                     <div class="input-group">
-                        <input type="date" class="form-control" aria-label="Fecha">
+                        <input type="date" id="fecha" class="form-control" aria-label="Fecha">
                     </div>
                 </div>
 
                 <!-- DNI/RUC -->
                 <div class="form-group">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="DNI/RUC" aria-label="DNI/RUC">
+                        <input type="text" class="form-control" id="dni_ruc" placeholder="DNI/RUC" aria-label="DNI/RUC">
                     </div>
                 </div>
 
                 <!-- Guía de Remisión Cliente -->
                 <div class="form-group">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Guía de Remisión Cliente" aria-label="Guía de Remisión Cliente">
+                        <input type="text" id="guia" class="form-control" placeholder="Guía de Remisión Cliente" aria-label="Guía de Remisión Cliente">
                     </div>
                 </div>
 
@@ -171,5 +173,31 @@
         var pesoSeco = pesoHumedo - (pesoHumedo * humedad/100);
         $("#pesoSeco").val(pesoSeco.toFixed(2));
     }
+</script>
+<script>
+   $('#cliente').select2({
+   
+    ajax: {
+      url: '<?php echo base_url('Usuarios/ObtenerUsuario');?>',
+      dataType: 'json',
+      delay: 250,
+      processResults: function(data){
+        return {
+          results: data
+        };
+      },
+      cache: true
+    }
+    }).on('select2:select', function (e) {
+      // Obtener los datos del producto seleccionado
+      var data = e.params.data;
+      
+      // Actualizar el input del stock
+      $('#dni_ruc').val(data.dni_ruc);
+      $('#codigo').val(data.id);
+      obtenerDatosActualizados(data.id);
+      // Actualizar el input del precio
+      
+  });
 </script>
 <?= $this->endSection(); ?>

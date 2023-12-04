@@ -7,6 +7,11 @@ class GuiaM extends Model {
         $query->insert($datos);
         return $this->db->InsertId();
     }
+    public function guardarguia($datos){
+        $query = $this->db->table('Guide');
+        $query->insert($datos);
+        return $this->db->InsertId();
+    }
     public function insertar($datos){
         $query = $this->db->table('IngressGuide');
         $query->insert($datos);

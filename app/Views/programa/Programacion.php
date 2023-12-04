@@ -102,7 +102,6 @@
 
   </script>
 
-  </script>
 
 
 <?= $this->endSection(); ?>
