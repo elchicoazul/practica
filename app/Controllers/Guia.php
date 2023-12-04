@@ -21,9 +21,10 @@ class Guia extends BaseController
         $pesoHumedo = $this->request->getPost('pesoHumedo');
         $humedad = $this->request->getPost('humedad');
         $pesoSeco = $this->request->getPost('pesoSeco');
+        $codigo = $this->request->getPost('codigo');
         log_message('info', 'Precio recibido: ' . $pesoSeco);
         $resultado = $model->guardar([
-            'user_id' => 1, 
+            'user_id' => $codigo, 
             'gross_weight' => $pesoBruto,
             'tare_weight' => $tara,
             'sample_weight' => $pesoMuestra,
@@ -40,9 +41,9 @@ class Guia extends BaseController
             return $this->response->setJSON(['estado' => 400, 'mssg' => 'Producto no registrado con éxito']);
         }
     }
-    public function obtenerTodosLosDatos() {
+    public function obtenerTodosLosDatos($id) {
         $model = new GuiaM();
-        $id=1;
+       
         // Obtener los datos desde la base de datos
         log_message('info', 'Guardar XD');
         $datos = $model->obtenerDatos($id); // Asumiendo que este método está definido en su modelo
@@ -65,10 +66,21 @@ class Guia extends BaseController
         log_message('info', 'transferirDatos:');
         $temporalModel = new GuiaM();
         $guia = new GuiaM();
-        $id=1;
-        log_message('info', 'transferirDatos M:');
+        $codigo_cliente = $this->request->getPost('codigo');
+        $codigo_guia = $this->request->getPost('codigo_guia');
+        $fecha = $this->request->getPost('fecha');
+        $guia_remision = $this->request->getPost('guia');
+        $guias = new GuiaM();
+        $data=[
+            'client_id'=>$codigo_cliente,
+            'date'=>$fecha,
+            'guide_code'=>$codigo_guia,
+            'shipment_guide'=>$guia_remision
+        ];
+        $rpta = $guias->guardarguia($data);
+        log_message('info', $rpta);
         // Obtener todos los registros de la tabla temporal para el user_id específico
-        $datosTemporales = $temporalModel->obtenerDatos($id);;
+        $datosTemporales = $temporalModel->obtenerDatos($codigo_cliente);;
         log_message('info', 'transferirDatos Mas:');
 
         // Verificar si hay datos para transferir

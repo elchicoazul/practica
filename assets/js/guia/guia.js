@@ -1,5 +1,9 @@
 function Temporal() {
     // Validación de campos
+    if ($("#codigo").val() == "") {
+        swal.fire('Error!', 'Debe  seleccionar un  Cliente', 'error');
+        return false;
+    }
     if ($("#pesoBruto").val() == "") {
         swal.fire('Error!', 'El campo Peso Bruto KG no puede estar vacío', 'error');
         return false;
@@ -32,9 +36,10 @@ function Temporal() {
         pesoMuestra: $("#pesoMuestra").val(),
         pesoHumedo: $("#pesoHumedo").val(),
         humedad: $("#humedad").val(),
-        pesoSeco: $("#pesoSeco").val()
+        pesoSeco: $("#pesoSeco").val(),
+        codigo: $("#codigo").val()
     };
-
+    id_cod= $("#codigo").val();
     // Confirmación antes de enviar los datos
     swal.fire({
         title: "Guardar registro",
@@ -55,7 +60,7 @@ function Temporal() {
             }).done(function (data) {
                 if (data.estado == 200) {
                    
-                    obtenerDatosActualizados();
+                    obtenerDatosActualizados(id_cod);
                     swal.fire('Registrado!', data.mssg, 'success');
                 } else {
                     swal.fire('Error!', data.mssg, 'error');
@@ -64,9 +69,9 @@ function Temporal() {
         }
     });
 }
-function obtenerDatosActualizados() {
+function obtenerDatosActualizados(id) {
     $.ajax({
-        url: 'http://localhost:8182/practica/Recepcion/obtenerDatos', // La URL de su nuevo método
+        url: 'http://localhost:8182/practica/Recepcion/obtenerDatos/' + id, // La URL de su nuevo método
         type: "GET",
         dataType: 'json'
     }).done(function (datos) {
@@ -93,6 +98,7 @@ function obtenerDatosActualizados() {
     });
 }
 function eliminarTemporal(id) {
+    id_cod= $("#codigo").val();
     // Confirmación antes de la eliminación
     swal.fire({
         title: "¿Está seguro?",
@@ -114,22 +120,50 @@ function eliminarTemporal(id) {
                         // Eliminar la fila del DOM
                         $('#fila-' + id).remove();
                         swal.fire('Eliminado!', 'El registro ha sido eliminado.', 'success');
-                        obtenerDatosActualizados();
+                        obtenerDatosActualizados(id_cod);
                     } else {
                         swal.fire('Error!', 'No se pudo eliminar el registro.', 'error');
-                        obtenerDatosActualizados();
+                        obtenerDatosActualizados(id_cod);
                     }
                 },
                 error: function() {
                     swal.fire('Error!', 'Hubo un problema al comunicarse con el servidor.', 'error');
-                    obtenerDatosActualizados();
+                    obtenerDatosActualizados(id_cod);
                 }
             });
         }
     });
 }
 
-function btnTransferirDatos(){
+function btnTransferirDatos() {
+    // Validación de los campos
+    if ($("#codigo").val() == "") {
+        swal.fire('Error!', 'Debe seleccionar un Cliente', 'error');
+        return false;
+    }
+    if ($("#codigo_guia").val() == "") {
+        swal.fire('Error!', 'Debe tener código de guía', 'error');
+        return false;
+    }
+    if ($("#fecha").val() == "") {
+        swal.fire('Error!', 'Debe tener Fecha', 'error');
+        return false;
+    }
+    if ($("#guia").val() == "") {
+        swal.fire('Error!', 'Debe tener guía de remisión', 'error');
+        return false;
+    }
+
+    // Creación del objeto userData
+    var userData = {
+        codigo: $("#codigo").val(),
+        codigo_guia: $("#codigo_guia").val(),
+        fecha: $("#fecha").val(),
+        guia: $("#guia").val(),
+        // Añade otros campos según sea necesario
+    };
+
+    // Confirmación para transferir los datos
     swal.fire({
         title: "Transferir Datos",
         text: "¿Está seguro de que desea transferir los datos desde la tabla temporal a la tabla real?",
@@ -141,14 +175,16 @@ function btnTransferirDatos(){
         cancelButtonText: 'No, Cancelar'
     }).then((result) => {
         if (result.value) {
+            // Realizar la solicitud AJAX para transferir los datos
             $.ajax({
                 url: 'http://localhost:8182/practica/Recepcion/transferir', // Ajuste esta URL a su ruta de API
-                type: 'GET', // o 'POST', según su implementación del servidor
+                type: 'POST',
                 dataType: 'json',
+                data: userData, // Enviar userData como parte de la solicitud
                 success: function(response) {
                     if(response.estado == 200) {
                         swal.fire('Transferido!', 'Los datos han sido transferidos con éxito.', 'success');
-                        obtenerDatosActualizados();
+                        obtenerDatosActualizados(); // Llamar a una función para actualizar la vista
                     } else {
                         swal.fire('Error!', 'Error al transferir los datos.', 'error');
                     }
@@ -159,6 +195,6 @@ function btnTransferirDatos(){
             });
         }
     });
-
 }
+
 
