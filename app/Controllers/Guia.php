@@ -8,7 +8,7 @@ class Guia extends BaseController
     public function index(): string
     {
         
-        return view('Guia/index');
+        return view('Guia/Index');
     }
     public function registrartemp()
     {
