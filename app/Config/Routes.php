@@ -14,22 +14,45 @@ $routes->get('/Recepcion/obtenerDatos', 'Guia::obtenerTodosLosDatos');
 $routes->post('/Recepcion/eliminar/(:any)', 'Guia::eliminar/$1');
 $routes->get('/Recepcion/transferir', 'Guia::transferirDatos');
 
-// rutas  braulio
+
+
+// rutas usuarios
 $routes->get('/Usuarios', 'Usuarios::usuario');
-$routes->get('/Productos', 'Productos::producto');
-$routes->get('/Configuracion', 'Configuraciones::configuracion');
-$routes->get('/Servicio', 'Servicios::servicio');
-$routes->get('/Programacion', 'Programaciones::programacion');
-$routes->get('/Productos/obtenerTodos', 'Productos::obtenerTodos');
-$routes->match(['get', 'post'], '/Usuarios/ObtenerUsuario', 'Usuarios::ObtenerUsuario');
-$routes->match(['get', 'post'], '/Productos/ObtenerProductos', 'Productos::ObtenerProductos');
-
-//ordenar
-
-$routes->post('/Productos/registrar', 'Productos::registrar');
-$routes->post('/Configuraciones/registrar', 'Configuraciones::registrar');
-$routes->post('/Servicios/registrar', 'Servicios::registrar');
+$routes->get('/Usuarios/obtenerTodosUsuarios', 'Usuarios::obtenerTodosUsuarios');//listar
 $routes->post('/Usuarios/registrar', 'Usuarios::registrar');
+$routes->post('/Usuarios/eliminar/(:any)', 'Usuarios::eliminar/$1');
+
+// rutas productos
+$routes->get('/Productos', 'Productos::producto');
+$routes->get('/Productos/obtenerTodos', 'Productos::obtenerTodos');//listar
+$routes->post('/Productos/registrar', 'Productos::registrar');
+$routes->post('/Productos/eliminar/(:any)', 'Productos::eliminar/$1');
+$routes->post('/Productos/guardar/(:num)', 'Productos::guardar/$1');
+
+
+// rutas servicios
+$routes->get('/Servicios', 'Servicios::servicio');
+$routes->get('/Servicios/obtenerTodosServicios', 'Servicios::obtenerTodosServicios');//listar
+$routes->post('/Servicios/registrar', 'Servicios::registrar');
+$routes->post('/Servicios/eliminar/(:any)', 'Servicios::eliminar/$1');
+$routes->post('/Servicios/guardar/(:num)', 'Servicios::guardar/$1');
+
+// rutas configuraciones
+$routes->get('/Configuraciones', 'Configuraciones::configuracion');
+$routes->get('/Configuraciones/obtenerTodasConfiguraciones', 'Configuraciones::obtenerTodasConfiguraciones');//listar
+$routes->post('/Configuraciones/registrar', 'Configuraciones::registrar');
+$routes->post('/Configuraciones/eliminar/(:any)', 'Configuraciones::eliminar/$1');
+$routes->post('/Configuraciones/guardar/(:num)', 'Configuraciones::guardar/$1');
+
+
+// rutas programaciones
+$routes->get('/Programacion', 'Programaciones::programacion');
+$routes->post('/Programaciones/registrar', 'Programaciones::registrar');
+$routes->match(['get', 'post'], '/Productos/ObtenerProductos', 'Productos::ObtenerProductos');
+$routes->match(['get', 'post'], '/Usuarios/ObtenerUsuario', 'Usuarios::ObtenerUsuario');
+
+
+
 
 
 

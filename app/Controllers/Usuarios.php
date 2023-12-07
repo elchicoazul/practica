@@ -46,7 +46,13 @@ class Usuarios extends BaseController
             return $this->response->setJSON(['estado' => 202, 'mssg' => 'Usuario no registrado']);
         }
     }
-    
+    public function obtenerTodosUsuarios()
+    {
+        $usuariosModel = new Usuario();
+        $usuarios = $usuariosModel->obtenerTodosUsuarios();
+        return $this->response->setJSON($usuarios);
+    }
+
     public function obtenerUsuario()
     {
         $usuarioModel = new Usuario();
@@ -55,4 +61,16 @@ class Usuarios extends BaseController
 
         echo json_encode($data);
     }
+
+    public function eliminar($id)
+    {
+        $model = new Usuario();
+        $data = ["id" =>$id ];
+        if ($model->eliminar($data)) {
+            return $this->response->setJSON(['estado' => 200, 'mssg' => 'Registro eliminado con éxito']);
+        } else {
+            return $this->response->setJSON(['estado' => 500, 'mssg' => 'Error al eliminar el registro']);
+        }
+    }
+
 }

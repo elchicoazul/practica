@@ -1,3 +1,7 @@
+$(document).ready(function () {
+    obtenerDatosUsuarios(); // Muestra la tabla al cargar la página
+
+});
 function registrarUsuario() {
     if ($("#username").val() == "") {
         swal.fire('Error!', 'El campo nombre: no puede estar vacio', 'error');
@@ -91,6 +95,7 @@ function registrarUsuario() {
         dataType: 'json',
         success: function (data) {
             if (data.estado == 200) {
+                obtenerDatosUsuarios();
                 swal.fire('Registrado!', data.mssg, 'success');
 
                 // Reset form fields after successful registration
@@ -108,6 +113,81 @@ function registrarUsuario() {
         },
         error: function () {
             swal.fire('Error!', 'Hubo un error al procesar la solicitud', 'error');
+        }
+    });
+}
+
+function obtenerDatosUsuarios() {
+    
+    $.ajax({
+        url: 'http://localhost/practica/Usuarios/obtenerTodosUsuarios',
+        type: "GET",
+        dataType: 'json'
+    }).done(function (datos) {
+        // Limpiar la tabla actual
+        $(".tabla-usuarios tbody").empty();
+        // Iterar sobre los datos y añadirlos a la tabla
+        datos.forEach(function (item) {
+            var fila = '<tr>' +
+                '<td>' + item.username + '</td>' +
+                '<td>' + item.role + '</td>' +
+                '<td>' + item.dni_ruc + '</td>' +
+                '<td>' + item.gold_law + '</td>' +
+                '<td>' + item.tailings_law + '</td>' +
+                '<td>' + item.fine_gold_to_deliver + '</td>' +
+                '<td>' + item.pine_silver_to_deliver + '</td>' +
+                '<td>' + item.gold_discount + '</td>' +
+                '<td>' + item.silver_discount + '</td>' +
+                '<td>' +
+                '<span class="btn btn-icon mb-1 text-primary" onclick="editarProducto(' + item.id + ')">' +
+                '<i class="mdi mdi-pencil"></i>' +
+            '</span>' +
+            '<span class="btn btn-icon mb-1 text-danger" onclick="eliminarUsuario(' + item.id + ')">' +
+                '<i class="mdi mdi-delete"></i>' +
+            '</span>'
+             +
+                '</td>' +
+                '</tr>';
+            $(".tabla-usuarios tbody").append(fila);
+        });
+    });
+}
+
+
+function eliminarUsuario(id) {
+    // Confirmación antes de la eliminación
+    swal.fire({
+        title: "¿Está seguro?",
+        text: "No podrá revertir esta acción",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'No, cancelar'
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                url: 'http://localhost/practica/Usuarios/eliminar/'+ id, // Ajuste la URL a su ruta de API
+                
+                type: 'POST', // O 'DELETE', dependiendo de su implementación en el servidor
+                success: function(response) {
+                    // Comprobar respuesta del servidor
+                    if (response.estado == 200) {
+                        // Eliminar la fila del DOM
+                        $('#fila-' + id).remove();
+                        swal.fire('Eliminado!', 'El registro ha sido eliminado.', 'success');
+                        obtenerDatosUsuarios();
+                    } else {
+                        swal.fire('Error!', 'No se pudo eliminar el registro.', 'error');
+                        obtenerDatosUsuarios();
+                    }
+                },
+                error: function() {
+                    swal.fire('Error!', 'Hubo un problema al comunicarse con el servidor.', 'error');
+                    obtenerDatosUsuarios();
+                }
+            });
         }
     });
 }

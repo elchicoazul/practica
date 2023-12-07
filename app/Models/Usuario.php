@@ -22,4 +22,17 @@ class Usuario extends Model {
 
         return $query->getResult();
     }
+
+    public function obtenerTodosUsuarios()
+    {
+        $query = $this->db->table('user')
+                          ->get();
+        return $query->getResultArray();
+    }
+        //eliminar Usuarios
+        public function eliminar($data) {
+            $query = $this->db->table('user');
+            $query->where($data);
+            return $query->delete();
+        }
 }
