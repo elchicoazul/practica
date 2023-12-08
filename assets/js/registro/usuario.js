@@ -1,69 +1,71 @@
+
 $(document).ready(function () {
     obtenerDatosUsuarios(); // Muestra la tabla al cargar la página
 
 });
 function registrarUsuario() {
-    if ($("#username").val() == "") {
-        swal.fire('Error!', 'El campo nombre: no puede estar vacio', 'error');
-        return false;
+  if ($('#username').val() == '') {
+    swal.fire('Error!', 'El campo nombre: no puede estar vacio', 'error');
+    return false;
+  }
+
+  if ($('#rol').val() == '') {
+    swal.fire('Error!', 'El campo rol: no puede estar vacio', 'error');
+    return false;
+  }
+
+  if ($('#dni_ruc').val() == '') {
+    swal.fire('Error!', 'El campo DNI/RUCa: no puede estar vacio', 'error');
+    return false;
+  }
+
+  if ($('#rol').val() == 'admin') {
+    if ($('#password1').val() == '') {
+      swal.fire('Error!', 'El campo Contraseña: no puede estar vacio', 'error');
+      return false;
     }
 
-    if ($("#rol").val() == "") {
-        swal.fire('Error!', 'El campo rol: no puede estar vacio', 'error');
-        return false;
+    if ($('#password2').val() == '') {
+      swal.fire('Error!', 'El campo Confirmar contraseña: no puede estar vacio', 'error');
+      return false;
     }
 
-    if ($("#dni_ruc").val() == "") {
-        swal.fire('Error!', 'El campo DNI/RUCa: no puede estar vacio', 'error');
-        return false;
+    if ($('#password1').val() !== $('#password2').val()) {
+      swal.fire('Error!', 'Las contraseñas deben ser iguales', 'error');
+      return false;
+    }
+  } else {
+    if ($('#gold_law').val() == '') {
+      swal.fire('Error!', 'El campo Ley general de cola de Au: no puede estar vacio', 'error');
+      return false;
     }
 
-    if ($("#rol").val() == "admin") {
-        if ($("#password1").val() == "") {
-            swal.fire('Error!', 'El campo Contraseña: no puede estar vacio', 'error');
-            return false;
-        }
-
-        if ($("#password2").val() == "") {
-            swal.fire('Error!', 'El campo Confirmar contraseña: no puede estar vacio', 'error');
-            return false;
-        }
-
-        if ($("#password1").val() !== $("#password2").val()) {
-            swal.fire('Error!', 'Las contraseñas deben ser iguales', 'error');
-            return false;
-        }
-    } else {
-        if ($("#gold_law").val() == "") {
-            swal.fire('Error!', 'El campo Ley general de cola de Au: no puede estar vacio', 'error');
-            return false;
-        }
-
-        if ($("#tailings_law").val() == "") {
-            swal.fire('Error!', 'El campo Ley general de cola de Ag: no puede estar vacio', 'error');
-            return false;
-        }
-
-        if ($("#fine_gold_to_deliver").val() == "") {
-            swal.fire('Error!', 'El campo Oro piña por entregar: no puede estar vacio', 'error');
-            return false;
-        }
-
-        if ($("#pine_silver_to_deliver").val() == "") {
-            swal.fire('Error!', 'El campo Plata piña por entregar: no puede estar vacio', 'error');
-            return false;
-        }
-
-        if ($("#gold_discount").val() == "") {
-            swal.fire('Error!', 'El campo Descuento Au: no puede estar vacio', 'error');
-            return false;
-        }
-
-        if ($("#silver_discount").val() == "") {
-            swal.fire('Error!', 'El campo Descuento Ag: no puede estar vacio', 'error');
-            return false;
-        }
+    if ($('#tailings_law').val() == '') {
+      swal.fire('Error!', 'El campo Ley general de cola de Ag: no puede estar vacio', 'error');
+      return false;
     }
+
+
+    if ($('#fine_gold_to_deliver').val() == '') {
+      swal.fire('Error!', 'El campo Oro piña por entregar: no puede estar vacio', 'error');
+      return false;
+    }
+
+    if ($('#pine_silver_to_deliver').val() == '') {
+      swal.fire('Error!', 'El campo Plata piña por entregar: no puede estar vacio', 'error');
+      return false;
+    }
+
+    if ($('#gold_discount').val() == '') {
+      swal.fire('Error!', 'El campo Descuento Au: no puede estar vacio', 'error');
+      return false;
+    }
+
+    if ($('#silver_discount').val() == '') {
+      swal.fire('Error!', 'El campo Descuento Ag: no puede estar vacio', 'error');
+      return false;
+    }
+  }
 
     // Construct user data object
     var userData = {
@@ -115,6 +117,7 @@ function registrarUsuario() {
             swal.fire('Error!', 'Hubo un error al procesar la solicitud', 'error');
         }
     });
+
 }
 
 function obtenerDatosUsuarios() {

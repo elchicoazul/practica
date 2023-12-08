@@ -26,6 +26,7 @@ class Usuario extends Model {
         return $query->getResult();
     }
 
+
     public function obtenerTodosUsuarios()
     {
         $query = $this->db->table('user')
@@ -50,4 +51,5 @@ class Usuario extends Model {
         // $result será verdadero si la actualización fue exitosa
         return $result;
     }
+
 }

@@ -28,7 +28,7 @@ class Database extends Config
         'DSN'          => '',
         'hostname'     => 'localhost',
         'username'     => 'root',
-        'password'     => 'vfcons',
+        'password'     => '',
         'database'     => 'korinto',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',

@@ -9,6 +9,11 @@ $routes->get('/', 'Home::index');
 $routes->get('/Guia', 'Guia::index');
 
 $routes->get('/Liquidacion', 'Liquidacion::index');
+$routes->match(['get', 'post'], '/Liquidacion/buscarDatosCliente/(:any)', 'Liquidacion::buscarDatosCliente/$1');
+$routes->post('/Liquidacion/registrarAnalisisTemp', 'Liquidacion::registrarAnalisisTemp');
+$routes->get('/Liquidacion/obtenerDatos/(:any)', 'Liquidacion::obtenerTodosLosDatos/$1');
+$routes->post('/Liquidacion/actualizarAnalisis/(:any)', 'Liquidacion::actualizarAnalisis/$1');
+
 $routes->post('/Recepcion/registrarTemp', 'Guia::registrartemp');
 $routes->get('/Recepcion/obtenerDatos/(:any)', 'Guia::obtenerTodosLosDatos/$1');
 $routes->post('/Recepcion/eliminar/(:any)', 'Guia::eliminar/$1');

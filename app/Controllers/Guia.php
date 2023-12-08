@@ -8,7 +8,7 @@ class Guia extends BaseController
     public function index(): string
     {
         
-        return view('Guia/index');
+        return view('Guia/Index');
     }
     public function registrartemp()
     {
@@ -63,7 +63,6 @@ class Guia extends BaseController
     }
     public function transferirDatos()
     {
-        log_message('info', 'transferirDatos:');
         $temporalModel = new GuiaM();
         $guia = new GuiaM();
         $codigo_cliente = $this->request->getPost('codigo');
@@ -75,22 +74,23 @@ class Guia extends BaseController
             'client_id'=>$codigo_cliente,
             'date'=>$fecha,
             'guide_code'=>$codigo_guia,
-            'shipment_guide'=>$guia_remision
+            'shipment_guide'=>$guia_remision,
+            'guideStatus'=>0
         ];
         $rpta = $guias->guardarguia($data);
-        log_message('info', $rpta);
+
         // Obtener todos los registros de la tabla temporal para el user_id específico
-        $datosTemporales = $temporalModel->obtenerDatos($codigo_cliente);;
-        log_message('info', 'transferirDatos Mas:');
+        $datosTemporales = $temporalModel->obtenerDatos($codigo_cliente);
 
         // Verificar si hay datos para transferir
         if (!empty($datosTemporales)) {
             foreach ($datosTemporales as $dato) {
                 $dataid=$dato['id'];
                 unset($dato['id']);
+                $dato['guide_id'] = $codigo_cliente; 
                 $guia->insertar($dato);
                 $data = ["id" =>$dataid];
-
+                $dato['guide_id'] = $rpta;
                 // Opcional: Eliminar el registro de la tabla temporal después de la transferencia
                 $temporalModel->eliminar($data);
             }

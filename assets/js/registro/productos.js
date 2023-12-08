@@ -4,64 +4,65 @@ $(document).ready(function () {
 });
 
 function registrarProductos() {
-    if ($("#name").val() == "") {
-        swal.fire('Error!', 'El campo Nombre de producto: no puede estar vacio', 'error');
-        return false;
-    }
-    if ($("#price").val() == "") {
-        swal.fire('Error!', 'El campo Precio: no puede estar vacio', 'error');
-        return false;
-    }
+  if ($('#name').val() == '') {
+    swal.fire('Error!', 'El campo Nombre de producto: no puede estar vacio', 'error');
+    return false;
+  }
+  if ($('#price').val() == '') {
+    swal.fire('Error!', 'El campo Precio: no puede estar vacio', 'error');
+    return false;
+  }
 
-    var stockValue = $("#stock").val();
+  var stockValue = $('#stock').val();
 
-    // Verificar si el campo está vacío o si el valor es menor o igual a cero
-    if (stockValue === "" || parseFloat(stockValue) <= 0) {
-        // Mostrar alerta si está vacío o si es menor o igual a cero
-        swal.fire('Error!', 'El campo Stock no puede estar vacío o ser menor o igual a cero', 'error');
-        return false;
-    }
+  // Verificar si el campo está vacío o si el valor es menor o igual a cero
+  if (stockValue === '' || parseFloat(stockValue) <= 0) {
+    // Mostrar alerta si está vacío o si es menor o igual a cero
+    swal.fire('Error!', 'El campo Stock no puede estar vacío o ser menor o igual a cero', 'error');
+    return false;
+  }
 
-    var model = {};
+  var model = {};
 
-    model.name=$("#name").val();
-    model.price=$("#price").val();
-    model.stock=$("#stock").val();
+  model.name = $('#name').val();
+  model.price = $('#price').val();
+  model.stock = $('#stock').val();
 
-
-    swal.fire({
-        title: "Guardar registro",
-        text: "¿Está seguro de guardar los datos ingresados?",
-        icon: 'question', // 'type' ha sido reemplazado por 'icon' en versiones más recientes de SweetAlert2
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Si, Guardar',
-        cancelButtonText: 'No',
-    }).then((result) => {
-        if (result.value) {
-            $.ajax({
-                url: 'http://localhost:8182/practica/Productos/registrar', // Asegúrese de que esta ruta sea correcta
-                type: "POST",
-                data: model,
-                dataType: 'json'
-            }).done(function (data) {
-                if (data.estado == 200) {
-                    obtenerDatosProductos();
-                    swal.fire('Registrado!', data.mssg, 'success');
-                    // Restablecer los valores de los campos después del registro exitoso
-                    $("#name").val('');
-                    $("#price").val('');
-                    $("#stock").val('');
-                }
-                else {
-                    swal.fire('Error!', data.mssg, 'error');
-                }
-            });
-        }
+  swal
+    .fire({
+      title: 'Guardar registro',
+      text: '¿Está seguro de guardar los datos ingresados?',
+      icon: 'question', // 'type' ha sido reemplazado por 'icon' en versiones más recientes de SweetAlert2
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, Guardar',
+      cancelButtonText: 'No',
+    })
+    .then((result) => {
+      if (result.value) {
+        $.ajax({
+          url: 'http://localhost/practica/Productos/registrar', // Asegúrese de que esta ruta sea correcta
+          type: 'POST',
+          data: model,
+          dataType: 'json',
+        }).done(function (data) {
+          if (data.estado == 200) {
+            obtenerDatosProductos();
+            swal.fire('Registrado!', data.mssg, 'success');
+            // Restablecer los valores de los campos después del registro exitoso
+            $('#name').val('');
+            $('#price').val('');
+            $('#stock').val('');
+          } else {
+            swal.fire('Error!', data.mssg, 'error');
+          }
+        });
+      }
     });
 }
 function obtenerDatosProductos() {
+
     $.ajax({
         url: 'http://localhost/practica/Productos/obtenerTodos',
         type: "GET",
@@ -90,6 +91,7 @@ function obtenerDatosProductos() {
     }).fail(function (error) {
         console.log("Error al obtener los datos: ", error);
     });
+  });
 }
 
 function eliminarProducto(id) {
@@ -150,6 +152,7 @@ function guardarProducto(id) {
     icono.closest('.btn').off('click').click(function() {
         editarProducto(id);
     });
+
 }
 function GuardarDatosProductos(id, datos) {
     swal.fire({
@@ -194,3 +197,4 @@ function editarProducto(id) {
         guardarProducto(id);
     });
 }
+
