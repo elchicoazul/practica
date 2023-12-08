@@ -41,7 +41,7 @@ function registrarProductos() {
     }).then((result) => {
         if (result.value) {
             $.ajax({
-                url: 'http://localhost/practica/Productos/registrar', // Asegúrese de que esta ruta sea correcta
+                url: 'http://localhost:8182/practica/Productos/registrar', // Asegúrese de que esta ruta sea correcta
                 type: "POST",
                 data: model,
                 dataType: 'json'

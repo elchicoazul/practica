@@ -127,3 +127,12 @@ CREATE TABLE TransactionDetail (
   FOREIGN KEY (product_id) REFERENCES Product(id),
   FOREIGN KEY (scheduling_id) REFERENCES Scheduling(id)
 );
+CREATE TABLE Guide (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    client_id INT,
+    date DATE,
+    guide_code VARCHAR(255),
+    shipment_guide VARCHAR(255)
+    -- añadir  liquidation -- 
+);
+

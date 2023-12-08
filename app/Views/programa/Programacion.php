@@ -171,7 +171,6 @@
     });
   });
 
-  </script>
 
 
 <?= $this->endSection(); ?>

@@ -10,9 +10,9 @@ $routes->get('/Guia', 'Guia::index');
 
 $routes->get('/Liquidacion', 'Liquidacion::index');
 $routes->post('/Recepcion/registrarTemp', 'Guia::registrartemp');
-$routes->get('/Recepcion/obtenerDatos', 'Guia::obtenerTodosLosDatos');
+$routes->get('/Recepcion/obtenerDatos/(:any)', 'Guia::obtenerTodosLosDatos/$1');
 $routes->post('/Recepcion/eliminar/(:any)', 'Guia::eliminar/$1');
-$routes->get('/Recepcion/transferir', 'Guia::transferirDatos');
+$routes->match(['get', 'post'], '/Recepcion/transferir', 'Guia::transferirDatos');
 
 
 

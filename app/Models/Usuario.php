@@ -16,8 +16,10 @@ class Usuario extends Model {
     {
         $builder = $this->builder();
         $query = $builder->like('username', $searchTerm)
-                        ->select('id, username as text')
+
+                        ->select('id, username as text,dni_ruc')
                         ->where('role', 'cliente')
+
                         ->limit(10)
                         ->get();
 
