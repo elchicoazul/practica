@@ -91,7 +91,6 @@ function obtenerDatosProductos() {
     }).fail(function (error) {
         console.log("Error al obtener los datos: ", error);
     });
-  });
 }
 
 function eliminarProducto(id) {

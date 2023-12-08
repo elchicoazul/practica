@@ -236,7 +236,7 @@
             finalValor = (officeLawValor + clientLawValor) / 2;
         }
 
-        document.getElementById('final-' + id).value = finalValor.toFixed(2);  // Asumiendo que desea dos decimales
+        document.getElementById('final-' + id).value = finalValor.toFixed(4);  // Asumiendo que desea dos decimales
         document.getElementById('neto-' + id).value = (finalValor * secoValor).toFixed(2);;
     }
 </script>
