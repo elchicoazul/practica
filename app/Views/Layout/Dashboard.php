@@ -95,39 +95,41 @@
               <span class="menu-icon">
                 <i class="mdi mdi-laptop"></i>
               </span>
-              <span class="menu-title">Basic UI Elements</span>
+              <span class="menu-title">Configuración</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Dropdowns</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
+                <li class="nav-item"> <a class="nav-link" href="<?php echo base_url(); ?>Usuarios">Usuario</a></li>
+                <li class="nav-item"> <a class="nav-link" href="<?php echo base_url(); ?>Productos">Productos</a></li>
+                <li class="nav-item"> <a class="nav-link" href="<?php echo base_url(); ?>Servicios">Servicios</a></li>
+                <li class="nav-item"> <a class="nav-link" href="<?php echo base_url(); ?>Configuraciones">General</a></li>
+
               </ul>
             </div>
           </li>
           <li class="nav-item menu-items">
-            <a class="nav-link" href="pages/forms/basic_elements.html">
+            <a class="nav-link" href="<?php echo base_url(); ?>Guia">
               <span class="menu-icon">
                 <i class="mdi mdi-playlist-play"></i>
               </span>
-              <span class="menu-title">Form Elements</span>
+              <span class="menu-title">Recepción</span>
             </a>
           </li>
           <li class="nav-item menu-items">
-            <a class="nav-link" href="pages/tables/basic-table.html">
+            <a class="nav-link" href="<?php echo base_url(); ?>Liquidacion">
               <span class="menu-icon">
                 <i class="mdi mdi-table-large"></i>
               </span>
-              <span class="menu-title">Tables</span>
+              <span class="menu-title">Liquidación</span>
             </a>
           </li>
           <li class="nav-item menu-items">
-            <a class="nav-link" href="pages/charts/chartjs.html">
+            <a class="nav-link" href="<?php echo base_url(); ?>Programacion">
               <span class="menu-icon">
                 <i class="mdi mdi-chart-bar"></i>
               </span>
-              <span class="menu-title">Charts</span>
+              <span class="menu-title">Programación</span>
             </a>
           </li>
           <li class="nav-item menu-items">
@@ -141,9 +143,9 @@
           <li class="nav-item menu-items">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
               <span class="menu-icon">
-                <i class="mdi mdi-security"></i>
+                <i class="mdi mdi-file-document-box"></i>
               </span>
-              <span class="menu-title">User Pages</span>
+              <span class="menu-title">Reportes</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="auth">
@@ -185,47 +187,6 @@
               </li>
             </ul>
             <ul class="navbar-nav navbar-nav-right">
-              <li class="nav-item dropdown d-none d-lg-block">
-                <a class="nav-link btn btn-success create-new-button" id="createbuttonDropdown" data-toggle="dropdown" aria-expanded="false" href="#">+ Crear Nueva Guia</a>
-                <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="createbuttonDropdown">
-                  <h6 class="p-3 mb-0">Projects</h6>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                      <div class="preview-icon bg-dark rounded-circle">
-                        <i class="mdi mdi-file-outline text-primary"></i>
-                      </div>
-                    </div>
-                    <div class="preview-item-content">
-                      <p class="preview-subject ellipsis mb-1">Software Development</p>
-                    </div>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                      <div class="preview-icon bg-dark rounded-circle">
-                        <i class="mdi mdi-web text-info"></i>
-                      </div>
-                    </div>
-                    <div class="preview-item-content">
-                      <p class="preview-subject ellipsis mb-1">UI Development</p>
-                    </div>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                      <div class="preview-icon bg-dark rounded-circle">
-                        <i class="mdi mdi-layers text-danger"></i>
-                      </div>
-                    </div>
-                    <div class="preview-item-content">
-                      <p class="preview-subject ellipsis mb-1">Software Testing</p>
-                    </div>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <p class="p-3 mb-0 text-center">See all projects</p>
-                </div>
-              </li>
               <li class="nav-item nav-settings d-none d-lg-block">
                 <a class="nav-link" href="#">
                   <i class="mdi mdi-view-grid"></i>
@@ -409,6 +370,11 @@
     <script src="<?php echo base_url(); ?>/assets/js/registro/productos.js"></script>
     <script src="<?php echo base_url(); ?>/assets/js/registro/configuracion.js"></script>
     <script src="<?php echo base_url(); ?>/assets/js/registro/servicio.js"></script>
+
+    <script src="<?php echo base_url(); ?>/assets/js/programacion/programacion.js"></script>
+
+
+
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   
     <script src="<?php echo base_url(); ?>/assets/js/guia/guia.js"></script>
