@@ -63,7 +63,7 @@ function obtenerDatosConfiguracion() {
         datos.forEach(function (item) {
             var fila = '<tr  id="configuracion-' + item.id + '">' +
                 '<td>' + item.id + '</td>' +
-                '<td data-editable="true">' + item.name + '</td>' +
+                '<td data-editable="false">' + item.name + '</td>' +
                 '<td data-editable="true">' + item.value + '</td>' +
                 '<td>' +
                 '<span class="btn btn-icon mb-1 text-primary" onclick="editarConfiguracion(' + item.id + ')">' +
@@ -124,8 +124,7 @@ function guardarConfiguracion(id) {
 
     // Recoger los datos editados
     var datosEditados = {
-        name: fila.find('td[data-editable="true"]').eq(0).text(), // Primera celda editable
-        value: fila.find('td[data-editable="true"]').eq(1).text() // Segunda celda editable
+        value: fila.find('td[data-editable="true"]').eq(0).text() // Segunda celda editable
     };
 
     // Llamar a guardarDatosConfiguracion para guardar los datos

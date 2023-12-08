@@ -128,18 +128,18 @@ function obtenerDatosUsuarios() {
         $(".tabla-usuarios tbody").empty();
         // Iterar sobre los datos y añadirlos a la tabla
         datos.forEach(function (item) {
-            var fila = '<tr>' +
-                '<td>' + item.username + '</td>' +
-                '<td>' + item.role + '</td>' +
-                '<td>' + item.dni_ruc + '</td>' +
-                '<td>' + item.gold_law + '</td>' +
-                '<td>' + item.tailings_law + '</td>' +
-                '<td>' + item.fine_gold_to_deliver + '</td>' +
-                '<td>' + item.pine_silver_to_deliver + '</td>' +
-                '<td>' + item.gold_discount + '</td>' +
-                '<td>' + item.silver_discount + '</td>' +
+            var fila = '<tr id="usuario-' + item.id + '">' +
+                '<td data-editable="true">' + item.username + '</td>' +
+                '<td data-editable="true">' + item.role + '</td>' +
+                '<td data-editable="true">' + item.dni_ruc + '</td>' +
+                '<td data-editable="true">' + item.gold_law + '</td>' +
+                '<td data-editable="true">' + item.tailings_law + '</td>' +
+                '<td data-editable="true">' + item.fine_gold_to_deliver + '</td>' +
+                '<td data-editable="true">' + item.pine_silver_to_deliver + '</td>' +
+                '<td data-editable="true">' + item.gold_discount + '</td>' +
+                '<td data-editable="true">' + item.silver_discount + '</td>' +
                 '<td>' +
-                '<span class="btn btn-icon mb-1 text-primary" onclick="editarProducto(' + item.id + ')">' +
+                '<span class="btn btn-icon mb-1 text-primary" onclick="editarUsuario(' + item.id + ')">' +
                 '<i class="mdi mdi-pencil"></i>' +
             '</span>' +
             '<span class="btn btn-icon mb-1 text-danger" onclick="eliminarUsuario(' + item.id + ')">' +
@@ -189,5 +189,87 @@ function eliminarUsuario(id) {
                 }
             });
         }
+    });
+}
+
+function guardarUsuario(id) {
+    var fila = $('#usuario-' + id);
+
+    // Recoger los datos editados
+    var datosEditados = {
+        username: fila.find('td[data-editable="true"]').eq(0).text(), // Primera celda editable
+        role: fila.find('td[data-editable="true"]').eq(1).text(), // Segunda celda editable
+        dni_ruc: fila.find('td[data-editable="true"]').eq(3).text(),
+        gold_law: fila.find('td[data-editable="true"]').eq(4).text(),
+        tailings_law: fila.find('td[data-editable="true"]').eq(5).text(),
+        fine_gold_to_deliver: fila.find('td[data-editable="true"]').eq(6).text(),
+        pine_silver_to_deliver: fila.find('td[data-editable="true"]').eq(7).text(),
+        gold_discount: fila.find('td[data-editable="true"]').eq(8).text(),
+        silver_discount: fila.find('td[data-editable="true"]').eq(9).text(),
+    };
+
+    // Llamar a guardarDatosUsuario para guardar los datos
+    guardarDatosUsuario(id, datosEditados);
+
+    // Resto del código para cambiar el ícono y el manejador de eventos
+    fila.find('td[data-editable="true"]').removeClass('editable-field').attr('contenteditable', 'false');
+    var icono = fila.find('.mdi-check');
+    icono.removeClass('mdi-check').addClass('mdi-pencil');
+    icono.closest('.btn').off('click').click(function() {
+        editarUsuario(id);
+    });
+}
+
+
+function guardarDatosUsuario(id, datos) {
+    swal.fire({
+        title: "Guardar registro",
+        text: "¿Está seguro de guardar los datos ingresados?",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, Guardar',
+        cancelButtonText: 'No',
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                url: 'http://localhost/practica/Usuarios/guardar/' + id,
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(datos),
+                dataType: 'json',
+                success: function (data) {
+                    if (data.estado == 200) {
+                        obtenerDatosUsuarios();
+                        swal.fire('Registrado!', data.mssg, 'success');
+                        // Aquí puede incluir cualquier lógica adicional después de un registro exitoso
+                    } else {
+                        swal.fire('Error!', data.mssg, 'error');
+                    }
+                },
+                error: function (error) {
+                    swal.fire('Error!', 'Hubo un problema al comunicarse con el servidor.', 'error');
+                    console.log(error); // Agregar log para ver detalles del error en la consola
+                }
+            });
+        }
+    });
+}
+
+
+function editarUsuario(id) {
+    console.log('Editando usuario con ID: ' + id);
+
+    var fila = $('#usuario-' + id);
+    fila.find('td[data-editable="true"]').addClass('editable-field').attr('contenteditable', 'true');
+
+    // Obtenemos el elemento del ícono directamente y cambiamos la clase
+    var icono = fila.find('.mdi-pencil');
+    icono.removeClass('mdi-pencil').addClass('mdi-check');
+
+    // Asignamos el nuevo manejador de eventos
+    icono.closest('.btn').off('click').click(function() {
+        guardarUsuario(id);
     });
 }

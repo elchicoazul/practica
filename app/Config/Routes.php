@@ -21,6 +21,8 @@ $routes->get('/Usuarios', 'Usuarios::usuario');
 $routes->get('/Usuarios/obtenerTodosUsuarios', 'Usuarios::obtenerTodosUsuarios');//listar
 $routes->post('/Usuarios/registrar', 'Usuarios::registrar');
 $routes->post('/Usuarios/eliminar/(:any)', 'Usuarios::eliminar/$1');
+$routes->post('/Usuarios/guardar/(:num)', 'Usuarios::guardar/$1');
+
 
 // rutas productos
 $routes->get('/Productos', 'Productos::producto');
@@ -28,7 +30,6 @@ $routes->get('/Productos/obtenerTodos', 'Productos::obtenerTodos');//listar
 $routes->post('/Productos/registrar', 'Productos::registrar');
 $routes->post('/Productos/eliminar/(:any)', 'Productos::eliminar/$1');
 $routes->post('/Productos/guardar/(:num)', 'Productos::guardar/$1');
-
 
 // rutas servicios
 $routes->get('/Servicios', 'Servicios::servicio');
@@ -50,6 +51,8 @@ $routes->get('/Programacion', 'Programaciones::programacion');
 $routes->post('/Programaciones/registrar', 'Programaciones::registrar');
 $routes->match(['get', 'post'], '/Productos/ObtenerProductos', 'Productos::ObtenerProductos');
 $routes->match(['get', 'post'], '/Usuarios/ObtenerUsuario', 'Usuarios::ObtenerUsuario');
+$routes->get('/Programaciones/obtenerTodasProgramaciones/(:num)', 'Programaciones::obtenerTodasProgramaciones/$1');
+$routes->post('/Programaciones/eliminar/(:any)', 'Programaciones::eliminar/$1');
 
 
 

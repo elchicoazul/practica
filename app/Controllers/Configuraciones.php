@@ -16,7 +16,6 @@ class Configuraciones extends BaseController
         $model = new ConfiguracionM();
 
         $datos = [
-            "name" => $this->request->getPost('name'),
             "value" => $this->request->getPost('value'),
         ];
 

@@ -87,9 +87,10 @@
         <h4 class="card-title">Registro de Programaciones</h4>
         <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
           <!-- Agrega un estilo para limitar la altura y agregar una barra de desplazamiento -->
-          <table class="table">
+          <table class="table tabla-programaciones">
             <thead>
               <tr>
+                <th>ID</th>
                 <th>Usuario</th>
                 <th>Producto</th>
                 <th>Cantidad (uds)</th>
@@ -108,26 +109,29 @@
   </div>
 </div>
   <script>
-  
-    $(document).ready(function () {
-      $('#search-cliente').select2({
-        placeholder: 'Usuario',
-        ajax: {
-          url: '<?php echo base_url('Usuarios/ObtenerUsuario');?>',
-          dataType: 'json',
-          delay: 25,
-          processResults: function(data){
-            return {
-              results: data
-            };
-          },
-          cache: true
-        }
+  $('#search-cliente').select2({
+          placeholder: 'Usuario',
+          ajax: {
+              url: '<?php echo base_url('Usuarios/ObtenerUsuario');?>',
+              dataType: 'json',
+              delay: 25,
+              processResults: function(data){
+                  return {
+                      results: data
+                  };
+              },
+              cache: true
+          }
+      }).on('select2:select', function (e) {
+
+          // Obtener los datos del cliente seleccionado
+          var data = e.params.data;
+          // Almacenar el ID del cliente en la variable
+          obtenerDatosProgramacion(data.id);
+          // Aquí puedes hacer más acciones con el id_cliente si es necesario
       });
-    });
 
   //producto
-  
   $('#search-product').select2({
     placeholder: 'Producto',
     ajax: {
