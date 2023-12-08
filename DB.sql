@@ -96,12 +96,12 @@ CREATE TABLE Scheduling (
   id INT AUTO_INCREMENT PRIMARY KEY,
   client_id INT NOT NULL,
   product_id INT NOT NULL,
-  service_id INT NOT NULL,
-  cash_advance DECIMAL(10,2),
-  debt DECIMAL(10,2),
+  price DECIMAL(10,2), 
+  amount DECIMAL(10,2),
+  total DECIMAL(10,2),
+  status TINYINT,
   FOREIGN KEY (client_id) REFERENCES User(id),
   FOREIGN KEY (product_id) REFERENCES Product(id),
-  FOREIGN KEY (service_id) REFERENCES Service(id)
 );
 
 -- Creación de la tabla de Saldo de Cuentas
