@@ -22,4 +22,5 @@ class Usuario extends Model {
 
         return $query->getResult();
     }
+
 }

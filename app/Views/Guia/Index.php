@@ -1,8 +1,8 @@
 <?= $this->extend('Layout/Dashboard'); ?>
 <?= $this->section('content'); ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 
 <div class="row">
     <div class="col-md-12 grid-margin stretch-card">
@@ -14,8 +14,8 @@
                 <!-- Cliente con botón de búsqueda -->
                 <div class="form-group">
                     <div class="input-group">
-                    <select class="form-control js-example-basic-single" id="cliente" placeholder="Cliente" style="height: 100px;"></select>
-                    <input type="text" class="form-control" id="codigo" placeholder="Código" aria-label="Código">
+                        <select class="form-control js-example-basic-single" id="cliente" placeholder="Cliente" style="height: 100px;"></select>
+                        <input type="text" class="form-control" id="codigo" placeholder="Código" aria-label="Código">
                     </div>
                 </div>
 
@@ -47,7 +47,7 @@
                     </div>
                 </div>
 
-                
+
             </div>
         </div>
     </div>
@@ -60,7 +60,7 @@
             <div class="card-body">
                 <h4 class="card-title">Recepcion</h4>
                 <p class="card-description">Ingrese los datos requeridos</p>
-                
+
                 <!-- Peso Bruto -->
                 <div class="form-group">
                     <div class="input-group">
@@ -70,7 +70,7 @@
                         <input onkeyup="calcularPesos()" type="number" step="0.01" class="form-control" placeholder="Peso Bruto KG" id="pesoBruto">
                     </div>
                 </div>
-                
+
                 <!-- Tara -->
                 <div class="form-group">
                     <div class="input-group">
@@ -80,7 +80,7 @@
                         <input onkeyup="calcularPesos()" type="number" step="0.01" class="form-control" placeholder="Tara KG" id="tara">
                     </div>
                 </div>
-                
+
                 <!-- Peso Muestra -->
                 <div class="form-group">
                     <div class="input-group">
@@ -90,7 +90,7 @@
                         <input onkeyup="calcularPesos()" type="number" step="0.01" class="form-control" placeholder="Peso Muestra KG" id="pesoMuestra">
                     </div>
                 </div>
-                
+
                 <!-- Peso Húmedo -->
                 <div class="form-group">
                     <div class="input-group">
@@ -100,7 +100,7 @@
                         <input disabled style="color: red;" type="number" step="0.01" class="form-control color-red" placeholder="Peso Húmedo KG" id="pesoHumedo">
                     </div>
                 </div>
-                
+
                 <!-- Humedad -->
                 <div class="form-group">
                     <div class="input-group">
@@ -110,7 +110,7 @@
                         <input onkeyup="calcularPesos()" type="number" step="0.01" class="form-control" placeholder="Humedad %" id="humedad">
                     </div>
                 </div>
-                
+
                 <!-- Peso Seco -->
                 <div class="form-group">
                     <div class="input-group">
@@ -120,7 +120,7 @@
                         <input disabled style="color: red;" type="number" step="0.01" class="form-control" placeholder="Peso Seco KG" id="pesoSeco">
                     </div>
                 </div>
-                
+
                 <button class="btn btn-primary" onclick="Temporal()">Ingresar</button>
             </div>
         </div>
@@ -147,7 +147,7 @@
                         </thead>
                         <tbody>
                             <!-- Ejemplo de fila -->
-                            
+
                             <!-- Puede agregar más filas según sea necesario -->
                         </tbody>
                     </table>
@@ -170,34 +170,34 @@
         $("#pesoHumedo").val(pesoHumedo.toFixed(2));
 
         // Calcular Peso Seco: Peso Húmedo - 10% de Peso Húmedo
-        var pesoSeco = pesoHumedo - (pesoHumedo * humedad/100);
+        var pesoSeco = pesoHumedo - (pesoHumedo * humedad / 100);
         $("#pesoSeco").val(pesoSeco.toFixed(2));
     }
 </script>
 <script>
-   $('#cliente').select2({
-   
-    ajax: {
-      url: '<?php echo base_url('Usuarios/ObtenerUsuario');?>',
-      dataType: 'json',
-      delay: 250,
-      processResults: function(data){
-        return {
-          results: data
-        };
-      },
-      cache: true
-    }
-    }).on('select2:select', function (e) {
-      // Obtener los datos del producto seleccionado
-      var data = e.params.data;
-      
-      // Actualizar el input del stock
-      $('#dni_ruc').val(data.dni_ruc);
-      $('#codigo').val(data.id);
-      obtenerDatosActualizados(data.id);
-      // Actualizar el input del precio
-      
-  });
+    $('#cliente').select2({
+
+        ajax: {
+            url: '<?php echo base_url('Usuarios/ObtenerUsuario'); ?>',
+            dataType: 'json',
+            delay: 50,
+            processResults: function(data) {
+                return {
+                    results: data
+                };
+            },
+            cache: true
+        }
+    }).on('select2:select', function(e) {
+        // Obtener los datos del producto seleccionado
+        var data = e.params.data;
+
+        // Actualizar el input del stock
+        $('#dni_ruc').val(data.dni_ruc);
+        $('#codigo').val(data.id);
+        obtenerDatosActualizados(data.id);
+        // Actualizar el input del precio
+
+    });
 </script>
 <?= $this->endSection(); ?>

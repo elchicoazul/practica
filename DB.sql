@@ -47,6 +47,7 @@ CREATE TABLE IngressGuideTemp (
 CREATE TABLE IngressGuide (
   id INT AUTO_INCREMENT PRIMARY KEY,
   user_id INT NOT NULL,
+  guide_id INT NOT NULL,
   gross_weight DECIMAL(10, 2),
   tare_weight DECIMAL(10, 2),
   sample_weight DECIMAL(10, 2),
@@ -79,6 +80,18 @@ CREATE TABLE LiquidationDetail (
   net_kg DECIMAL(10,2) NOT NULL,
   general_law_result DECIMAL(10,2) NOT NULL,
   FOREIGN KEY (liquidation_id) REFERENCES Liquidation(id)
+);
+
+CREATE TABLE LiquidationDetailTemp (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  client_id INT NOT NULL,
+  element VARCHAR(255) NOT NULL,
+  office_law DECIMAL(10,2) NOT NULL,
+  client_law DECIMAL(10,2) NOT NULL,
+  difference DECIMAL(10,2) NOT NULL,
+  final_law DECIMAL(10,2) NOT NULL,
+  net_kg DECIMAL(10,2) NOT NULL,
+  dry_weight DECIMAL(10,2) NOT NULL
 );
 
 -- Creación de la tabla de Producto
@@ -132,7 +145,8 @@ CREATE TABLE Guide (
     client_id INT,
     date DATE,
     guide_code VARCHAR(255),
-    shipment_guide VARCHAR(255)
+    shipment_guide VARCHAR(255),
+    guideStatus TINYINT
     -- añadir  liquidation -- 
 );
 
