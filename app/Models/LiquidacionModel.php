@@ -34,7 +34,7 @@ class LiquidacionModel extends Model {
     }
 
     public function actualizar($analisisData, $id) {
-        $this->db->table('LiquidationDetailTemp')
+        return $this->db->table('LiquidationDetailTemp')
                  ->where('id', $id)
                  ->update($analisisData);
     }

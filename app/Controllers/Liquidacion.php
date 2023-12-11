@@ -74,8 +74,7 @@ class Liquidacion extends BaseController
             $final = isset($analisisData['final']) ? $analisisData['final'] : null;
             $neto = isset($analisisData['neto']) ? $analisisData['neto'] : null;
     
-            log_message('info', 'data' .  $seco);
-            $liquidacionmodel->actualizar([
+            $result = $liquidacionmodel->actualizar([
                 'dry_weight' => $seco,
                 'office_law' => $officeLaw,
                 'client_law' => $clientLaw,
@@ -83,6 +82,20 @@ class Liquidacion extends BaseController
                 'final_law' => $final,
                 'net_kg' => $neto,
             ], $id);
+
+            if ($result) {
+                $datos = [
+                    'success' => true,
+                    'message' => 'Actualización exitosa',
+                ];
+            } else {
+                $datos = [
+                    'success' => false,
+                    'message' => 'Error al actualizar', 
+                ];
+            }
+
+            return $this->response->setJSON($datos);
         }
     }
     
