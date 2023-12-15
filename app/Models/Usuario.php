@@ -16,15 +16,22 @@ class Usuario extends Model {
     {
         $builder = $this->builder();
         $query = $builder->like('username', $searchTerm)
-
-                        ->select('id, username as text,dni_ruc')
-                        ->where('role', 'cliente')
-
+                        ->select(
+                            'id, 
+                            username as text,
+                            dni_ruc, 
+                            gold_law, 
+                            tailings_law, 
+                            fine_gold_to_deliver, 
+                            pine_silver_to_deliver, 
+                            gold_discount, 
+                            silver_discount')
                         ->limit(10)
                         ->get();
 
         return $query->getResult();
     }
+
 
 
     public function obtenerTodosUsuarios()

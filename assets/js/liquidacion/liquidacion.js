@@ -3,42 +3,48 @@ let plataSeco = 0.0;
 let oroFino = 0.0;
 let plataFina = 0.0;
 
-function obtenerLiquidacionData(id) {
+let gold_law = 0.0;
+let tailings_law = 0.0;
+let fine_gold_to_deliver = 0.0;
+let pine_silver_to_deliver = 0.0;
+let gold_discount = 0.0;
+let silver_discount = 0.0;
+
+function obtenerLiquidacionData(data) {
+  gold_law = parseFloat(data.gold_law);
+  tailings_law = parseFloat(data.tailings_law);
+  fine_gold_to_deliver = parseFloat(data.fine_gold_to_deliver);
+  pine_silver_to_deliver = parseFloat(data.pine_silver_to_deliver);
+  gold_discount = parseFloat(data.gold_discount);
+  silver_discount = parseFloat(data.silver_discount);
+
   $.ajax({
-    url: 'http://localhost/practica/Liquidacion/buscarDatosCliente/' + id, // La URL de su nuevo método
+    url: 'http://localhost/practica/Liquidacion/buscarDatosCliente/' + data.id, // La URL de su nuevo método
     type: 'GET',
     dataType: 'json',
   }).done(function (datos) {
-    $('#tablaDatos tbody').empty();
+    const tablaDatosBody = $('#tablaDatos tbody');
+    tablaDatosBody.empty();
+
     datos.forEach(function (item, index) {
-      var fila =
-        '<tr>' +
-        '<td>' +
-        (index + 1) +
-        '</td>' + // Asegúrese de que estos nombres coincidan
-        '<td>' +
-        'Guía #1' +
-        '</td>' + // con los nombres de las propiedades en
-        '<td>' +
-        item.guide_code +
-        '</td>' + // el objeto JSON que recibe del servidor
-        '<td>' +
-        item.wet_weight +
-        '</td>' +
-        '<td>' +
-        item.moisture_percentage +
-        '</td>' +
-        '<td>' +
-        item.dry_weight +
-        '</td>';
-      ('</tr>');
-      $('#tablaDatos tbody').append(fila);
+      const fila = `
+        <tr>
+          <td>${index + 1}</td>
+          <td>Guía #1</td>
+          <td>${item.guide_code}</td>
+          <td>${item.wet_weight}</td>
+          <td>${item.moisture_percentage}</td>
+          <td>${item.dry_weight}</td>
+        </tr>`;
+      tablaDatosBody.append(fila);
     });
-    document.getElementById('btnGenerarAnalisis').onclick = () => generarAnalisisTemp(datos, id);
+
+    document.getElementById('btnGenerarAnalisis').onclick = () => generarAnalisisTemp(datos, data.id);
   });
 }
 
 function generarAnalisisTemp(datos, id) {
+  // Retorna los datos del elemento pasado como parametro
   const createAnalysis = (element, datos) => {
     return datos.map((e) => ({
       client_id: id,
@@ -75,7 +81,7 @@ function generarAnalisisTemp(datos, id) {
           dataType: 'json',
         }).done(function (data) {
           if (data.estado == 200) {
-            obtenerDatosAnalisis(id);
+            mostrarTablasAnalisisById(id);
             swal.fire('Registrado!', data.mssg, 'success');
           } else {
             swal.fire('Error!', data.mssg, 'error');
@@ -85,7 +91,7 @@ function generarAnalisisTemp(datos, id) {
     });
 }
 
-function obtenerDatosAnalisis(id) {
+function mostrarTablasAnalisisById(id) {
   $.ajax({
     url: 'http://localhost/practica/Liquidacion/obtenerDatos/' + id,
     type: 'GET',
@@ -98,15 +104,18 @@ function obtenerDatosAnalisis(id) {
 
     const oroRes = renderElementsAnalisis(datosAU, 'tablaAnalisisAU');
     const plataRes = renderElementsAnalisis(datosAG, 'tablaAnalisisAG');
+
     oroSeco = Number(oroRes.elSecoTotal);
     plataSeco = Number(plataRes.elSecoTotal);
     oroFino = Number(oroRes.elNetoTotal);
     plataFina = Number(plataRes.elNetoTotal);
+
     mostrarTablaTotal();
   });
 }
 
 const renderElementsAnalisis = (data, tableId) => {
+  // Mostrar la data de los elementos en filas
   const analisisResults = data.map((item, index) => {
     const fila = `
     <tr id="fila-${item.id}">
@@ -129,16 +138,22 @@ const renderElementsAnalisis = (data, tableId) => {
       netKg: Number(item.net_kg),
     };
   });
+  // Mostrar el resultado del elemento
+  const pesoSecoTotal = analisisResults.reduce((acc, curr) => acc + curr.dryWeigth, 0).toFixed(2);
+  const pesoNetoTotal = analisisResults.reduce((acc, curr) => acc + curr.netKg, 0).toFixed(2);
+  const pesoLeyGeneral = (analisisResults.reduce((acc, curr) => acc + curr.netKg, 0) - 10.1).toFixed(2);
+  const netoPorEntregar = (pesoLeyGeneral * (98.5 / 100)).toFixed(2);
+
   const total = `
     <tr>
       <th></th>
       <th>Totales</th>
-      <th>${analisisResults.reduce((acc, curr) => acc + curr.dryWeigth, 0)}</th>
+      <th>${pesoSecoTotal}</th>
       <th></th>
       <th></th>
       <th></th>
       <th></th>
-      <th id="totalKgs">${analisisResults.reduce((acc, curr) => acc + curr.netKg, 0)}</th>
+      <th id="totalKgs">${pesoNetoTotal}</th>
     </tr>
     <tr>
       <th></th>
@@ -146,8 +161,8 @@ const renderElementsAnalisis = (data, tableId) => {
       <th></th>
       <th></th>
       <th colspan="2">Ley general de cola (grs/Kg.):</th>
-      <th>0.10</th>
-      <th>10.10</th>
+      <th>${(tableId === 'tablaAnalisisAG' ? tailings_law : gold_law).toFixed(2)}</th>
+      <th>${(pesoSecoTotal * (10 / 100)).toFixed(2)}</th>
     </tr>
     <tr>
       <th></th>
@@ -157,22 +172,23 @@ const renderElementsAnalisis = (data, tableId) => {
       <th></th>
       <th></th>
       <th></th>
-      <th>${(analisisResults.reduce((acc, curr) => acc + curr.netKg, 0) - 10.1).toFixed(2)}</th>
+      <th>${pesoLeyGeneral}</th>
     </tr>
     <tr>
       <th></th>
       <th></th>
       <th></th>
       <th></th>
-      <th colspan="2">Oro fino por entregar:</th>
-      <th>98.50%</th>
-      <th>${((analisisResults.reduce((acc, curr) => acc + curr.netKg, 0) - 10.1) * (98.5 / 100)).toFixed(2)}</th>
+      <th colspan="2">${tableId === 'tablaAnalisisAG' ? 'Plata Piña por entregar:' : 'Oro fino por entregar:'}</th>
+      <th>${(tableId === 'tablaAnalisisAG' ? pine_silver_to_deliver : fine_gold_to_deliver).toFixed(2)}%</th>
+      <th>${netoPorEntregar}</th>
     </tr>
   `;
   $('#' + tableId + ' tbody').append(total);
+
   return {
-    elSecoTotal: analisisResults.reduce((acc, curr) => acc + curr.dryWeigth, 0),
-    elNetoTotal: ((analisisResults.reduce((acc, curr) => acc + curr.netKg, 0) - 10.1) * (98.5 / 100)).toFixed(2),
+    elSecoTotal: pesoSecoTotal,
+    elNetoTotal: netoPorEntregar,
   };
 };
 
@@ -212,48 +228,58 @@ const guardarAnalisis = async (id) => {
       final: parseFloat(fila.cells[6].getElementsByTagName('input')[0].value),
       neto: parseFloat(fila.cells[7].getElementsByTagName('input')[0].value),
     };
+
     $.ajax({
       url: 'http://localhost/practica/Liquidacion/actualizarAnalisis/' + id,
       type: 'POST',
       data: { id: Number(id), analisisData: analisisData },
       dataType: 'json',
-    });
-    fila.cells[0].innerHTML = `
-          <span class="btn btn-icon text-primary" onclick="editarAnalisis(${id})">
-            <i class="mdi mdi-pencil"></i>
-          </span>
-        `;
-    fila.cells[2].innerHTML = fila.cells[2].getElementsByTagName('input')[0].value;
-    fila.cells[3].innerHTML = fila.cells[3].getElementsByTagName('input')[0].value;
-    fila.cells[4].innerHTML = fila.cells[4].getElementsByTagName('input')[0].value;
-    fila.cells[5].innerHTML = fila.cells[5].getElementsByTagName('input')[0].value;
-    fila.cells[6].innerHTML = fila.cells[6].getElementsByTagName('input')[0].value;
-    fila.cells[7].innerHTML = fila.cells[7].getElementsByTagName('input')[0].value;
+    })
+      .done(function (datos) {
+        console.log(datos);
+        fila.cells[0].innerHTML = `
+        <span class="btn btn-icon text-primary" onclick="editarAnalisis(${id})">
+          <i class="mdi mdi-pencil"></i>
+        </span>
+      `;
+        fila.cells[2].innerHTML = fila.cells[2].getElementsByTagName('input')[0].value;
+        fila.cells[3].innerHTML = fila.cells[3].getElementsByTagName('input')[0].value;
+        fila.cells[4].innerHTML = fila.cells[4].getElementsByTagName('input')[0].value;
+        fila.cells[5].innerHTML = fila.cells[5].getElementsByTagName('input')[0].value;
+        fila.cells[6].innerHTML = fila.cells[6].getElementsByTagName('input')[0].value;
+        fila.cells[7].innerHTML = fila.cells[7].getElementsByTagName('input')[0].value;
+        const userId = $('#cliente').val();
+        mostrarTablasAnalisisById(userId);
+      })
+      .fail(function (xhr, textStatus, errorThrown) {
+        console.log(xhr.responseText);
+      });
   }
 };
 
 const mostrarTablaTotal = () => {
+  $('#tablaTotal tbody').empty();
   const auOnza = (1979.7).toFixed(2);
   const auGrms = (auOnza / 31.1035).toFixed(2);
-  const auValorMetalGrms = (auOnza * auGrms).toFixed(2);
-  const auDescuento = (96.0 / 100).toFixed(2);
-  const auNetoGrs = (auValorMetalGrms * auDescuento).toFixed(2);
+  const auValorMetalGrms = (oroFino * auGrms).toFixed(2);
+  const auDescuento = (gold_discount / 100).toFixed(2);
+  const auNetoGrs = (auValorMetalGrms - auValorMetalGrms * auDescuento).toFixed(2);
 
   const agOnza = (23.885).toFixed(2);
   const agGrms = (agOnza / 31.1035).toFixed(2);
-  const agValorMetalGrms = (agOnza * agGrms).toFixed(2);
-  const agDescuento = (89.0 / 100).toFixed(2);
-  const agNetoGrs = (agValorMetalGrms * agDescuento).toFixed(2);
+  const agValorMetalGrms = (plataFina * agGrms).toFixed(2);
+  const agDescuento = (silver_discount / 100).toFixed(2);
+  const agNetoGrs = (agValorMetalGrms - agValorMetalGrms * agDescuento).toFixed(2);
 
   const totalMetal = (oroFino + plataFina).toFixed(2);
-  const totalNeto = Number(auNetoGrs) + Number(agNetoGrs);
+  const totalNeto = (Number(auNetoGrs) + Number(agNetoGrs)).toFixed(2);
   const auRefinacionTotal = (oroFino * 0.045).toFixed(2);
   const agRefinacionTotal = (plataFina * 0.02).toFixed(2);
   const desorcion = (oroSeco * 1.3).toFixed(2);
   const transporte = (plataSeco * 0.8).toFixed(2);
   const IGV = 47.13;
 
-  const pagoTotal = totalNeto - desorcion - auRefinacionTotal - agRefinacionTotal - transporte - IGV;
+  const pagoTotal = (totalNeto - desorcion - auRefinacionTotal - agRefinacionTotal - transporte - IGV).toFixed(2);
 
   const tablaTotalBody = `
     <tr>

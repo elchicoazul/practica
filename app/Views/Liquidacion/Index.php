@@ -215,11 +215,12 @@
             cache: true
         }
     }).on('select2:select', function(e) {
-        const {data} = e.params;
-        console.log(data)
-        obtenerLiquidacionData(data.id);
-        obtenerDatosAnalisis(data.id);
+        const { data } = e.params;
+        const { id } = data;
+        obtenerLiquidacionData(data);
+        mostrarTablasAnalisisById(id);
     });
+
 
     function leyes(id) {
         var secoValor = parseFloat(document.getElementById('seco-' + id).value);
