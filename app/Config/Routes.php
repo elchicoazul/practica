@@ -8,6 +8,9 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Home::index');
 $routes->get('/Guia', 'Guia::index');
 
+//reportes
+$routes->get('/Reportes','Reportes::index');
+
 $routes->get('/Liquidacion', 'Liquidacion::index');
 $routes->match(['get', 'post'], '/Liquidacion/buscarDatosCliente/(:any)', 'Liquidacion::buscarDatosCliente/$1');
 $routes->post('/Liquidacion/registrarAnalisisTemp', 'Liquidacion::registrarAnalisisTemp');

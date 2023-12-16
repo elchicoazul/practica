@@ -132,8 +132,8 @@ function obtenerDatosUsuarios() {
         // Iterar sobre los datos y añadirlos a la tabla
         datos.forEach(function (item) {
             var fila = '<tr id="usuario-' + item.id + '">' +
-                '<td data-editable="true">' + item.username + '</td>' +
-                '<td data-editable="true">' + item.role + '</td>' +
+                '<td>' + item.username + '</td>' +
+                '<td>' + item.role + '</td>' +
                 '<td data-editable="true">' + item.dni_ruc + '</td>' +
                 '<td data-editable="true">' + item.gold_law + '</td>' +
                 '<td data-editable="true">' + item.tailings_law + '</td>' +
@@ -202,13 +202,13 @@ function guardarUsuario(id) {
     var datosEditados = {
         username: fila.find('td[data-editable="true"]').eq(0).text(), // Primera celda editable
         role: fila.find('td[data-editable="true"]').eq(1).text(), // Segunda celda editable
-        dni_ruc: fila.find('td[data-editable="true"]').eq(3).text(),
-        gold_law: fila.find('td[data-editable="true"]').eq(4).text(),
-        tailings_law: fila.find('td[data-editable="true"]').eq(5).text(),
-        fine_gold_to_deliver: fila.find('td[data-editable="true"]').eq(6).text(),
-        pine_silver_to_deliver: fila.find('td[data-editable="true"]').eq(7).text(),
-        gold_discount: fila.find('td[data-editable="true"]').eq(8).text(),
-        silver_discount: fila.find('td[data-editable="true"]').eq(9).text(),
+        dni_ruc: fila.find('td[data-editable="true"]').eq(2).text(),
+        gold_law: fila.find('td[data-editable="true"]').eq(3).text(),
+        tailings_law: fila.find('td[data-editable="true"]').eq(4).text(),
+        fine_gold_to_deliver: fila.find('td[data-editable="true"]').eq(5).text(),
+        pine_silver_to_deliver: fila.find('td[data-editable="true"]').eq(6).text(),
+        gold_discount: fila.find('td[data-editable="true"]').eq(7).text(),
+        silver_discount: fila.find('td[data-editable="true"]').eq(8).text(),
     };
 
     // Llamar a guardarDatosUsuario para guardar los datos

@@ -26,7 +26,7 @@
 
 
 <div class="row">
-    <div class="col-md-5 grid-margin stretch-card">
+    <div class="col-md-5 grid-margin">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Registro de Servicios</h4>
@@ -50,7 +50,7 @@
         </div>
     </div>
 
-    <div class="col-lg-7 grid-margin stretch-card">
+    <div class="col-lg-7 grid-margin">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Lista de Registro de los Servicios</h4>
