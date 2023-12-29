@@ -22,14 +22,14 @@ CREATE TABLE User (
 CREATE TABLE Service (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
-  price DECIMAL(10,2) NOT NULL
+  price DECIMAL(10,4) NOT NULL
 );
 
 -- Creación de la tabla de Configuración
 CREATE TABLE Configuration (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
-  value DECIMAL(10,2) NOT NULL,
+  value DECIMAL(10,4) NOT NULL,
 );
 
 -- Creación de la tabla de Guía de Ingreso
@@ -86,12 +86,16 @@ CREATE TABLE LiquidationDetailTemp (
   id INT AUTO_INCREMENT PRIMARY KEY,
   client_id INT NOT NULL,
   element VARCHAR(255) NOT NULL,
-  office_law DECIMAL(10,2) NOT NULL,
-  client_law DECIMAL(10,2) NOT NULL,
-  difference DECIMAL(10,2) NOT NULL,
-  final_law DECIMAL(10,2) NOT NULL,
+  office_law DECIMAL(10,4) NOT NULL,
+  client_law DECIMAL(10,4) NOT NULL,
+  difference DECIMAL(10,4) NOT NULL,
+  final_law DECIMAL(10,4) NOT NULL,
   net_kg DECIMAL(10,2) NOT NULL,
-  dry_weight DECIMAL(10,2) NOT NULL
+  dry_weight DECIMAL(10,2) NOT NULL,
+  element_law DECIMAL(10,4) NOT NULL,
+  element_to_deliver DECIMAL(10,4) NOT NULL,
+  accion_inter_onza DECIMAL(10,2) NOT NULL,
+  descuento DECIMAL(10,2) NOT NULL
 );
 
 -- Creación de la tabla de Producto
@@ -150,3 +154,12 @@ CREATE TABLE Guide (
     -- añadir  liquidation -- 
 );
 
+CREATE TABLE DailyChangingValues (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  client_id INT NOT NULL,
+  element VARCHAR(255) NOT NULL,
+  gold_law DECIMAL(10,2),
+  tailings_law DECIMAL(10,2),
+  fine_gold_to_deliver DECIMAL(10,2),
+  pine_silver_to_deliver DECIMAL(10,2)
+);

@@ -73,15 +73,34 @@ class Liquidacion extends BaseController
             $difference = isset($analisisData['difference']) ? $analisisData['difference'] : null;
             $final = isset($analisisData['final']) ? $analisisData['final'] : null;
             $neto = isset($analisisData['neto']) ? $analisisData['neto'] : null;
-    
-            $result = $liquidacionmodel->actualizar([
-                'dry_weight' => $seco,
-                'office_law' => $officeLaw,
-                'client_law' => $clientLaw,
-                'difference' => $difference,
-                'final_law' => $final,
-                'net_kg' => $neto,
-            ], $id);
+            $element = isset($analisisData['element']) ? $analisisData['element'] : null;
+            $element_law = isset($analisisData['element_law']) ? $analisisData['element_law'] : null;
+            $element_to_deliver = isset($analisisData['element_to_deliver']) ? $analisisData['element_to_deliver'] : null;
+            $accion_inter_onza = isset($analisisData['accion_inter_onza']) ? $analisisData['accion_inter_onza'] : null;
+            $descuento = isset($analisisData['descuento']) ? $analisisData['descuento'] : null;
+
+            if ($element !== null) {
+                if($descuento !== null) {
+                    $result = $liquidacionmodel->actualizarFinal([
+                        'accion_inter_onza' => $accion_inter_onza,
+                        'descuento' => $descuento
+                    ], $id, $element);
+                } else {
+                    $result = $liquidacionmodel->actualizarLey([
+                        'element_law' => $element_law,
+                        'element_to_deliver' => $element_to_deliver
+                    ], $id, $element);
+                }
+            } else {
+                $result = $liquidacionmodel->actualizar([
+                    'dry_weight' => $seco,
+                    'office_law' => $officeLaw,
+                    'client_law' => $clientLaw,
+                    'difference' => $difference,
+                    'final_law' => $final,
+                    'net_kg' => $neto,
+                ], $id);
+            }
 
             if ($result) {
                 $datos = [
@@ -97,6 +116,12 @@ class Liquidacion extends BaseController
 
             return $this->response->setJSON($datos);
         }
+    }
+    
+    public function obtenerTotalValores() {
+        $liquidacionmodel = new LiquidacionModel();
+        $datos = $liquidacionmodel->obtenerTotalValores();
+        return $this->response->setJSON($datos);
     }
     
 }

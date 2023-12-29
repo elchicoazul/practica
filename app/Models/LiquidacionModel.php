@@ -38,6 +38,27 @@ class LiquidacionModel extends Model {
                  ->where('id', $id)
                  ->update($analisisData);
     }
+
+    public function actualizarLey($analisisData, $id, $element) {
+        return $this->db->table('LiquidationDetailTemp')
+                 ->where('client_id', $id)
+                 ->where('element', $element)
+                 ->update($analisisData);
+    }
+
+    public function obtenerTotalValores() {
+        $query1 = $this->db->table('service')->select('*')->get();
+        $query2 = $this->db->table('configuration')->select('*')->get();
+        return array($query1->getResultArray(), $query2->getResultArray());
+    }
+
+    public function actualizarFinal($analisisData, $id, $element) {
+        return $this->db->table('LiquidationDetailTemp')
+                 ->where('client_id', $id)
+                 ->where('element', $element)
+                 ->update($analisisData);
+    }
+    
 }
 
 ?>
