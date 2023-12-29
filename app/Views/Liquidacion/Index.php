@@ -53,7 +53,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Ejemplo de fila -->
+                            <!-- Ejemplo de fila
                             <tr>
                                 <td>1</td>
                                 <td>Guía #1</td>
@@ -62,7 +62,7 @@
                                 <td>Valor Humedad</td>
                                 <td>Valor Peso Seco</td>
                             </tr>
-                            <!-- Puede agregar más filas según sea necesario -->
+                            Puede agregar más filas según sea necesario -->
                         </tbody>
                     </table>
                 </div>
@@ -71,9 +71,9 @@
     </div>
 
 </div>
-<!-- oro -->
+<!-- tablas -->
 <div class="row">
-    <div class="col-lg-12 grid-margin stretch-card">
+    <div class="col-lg-12 grid-margin stretch-card" id="tablaAnalisOro" hidden>
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Tabla de Análisis Au</h4>
@@ -112,7 +112,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-12 grid-margin stretch-card">
+    <div class="col-lg-12 grid-margin stretch-card" id="tablaAnalisPlata" hidden>
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Tabla de Análisis AG</h4>
@@ -153,7 +153,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-12 grid-margin stretch-card">
+    <div class="col-lg-12 grid-margin stretch-card" id="tablaAnalisTotal" hidden>
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Tabla de Análisis Elementos</h4>
@@ -161,6 +161,10 @@
                     <table class="table" id="tablaTotal">
                         <thead>
                             <tr>
+                                <th>
+                                    <div class="text-center">Editar</div>
+                                    <div class="text-center"></div>
+                                </th>
                                 <th>
                                     <div class="text-center">Tipo de</div>
                                     <div class="text-center">Metal</div>
@@ -217,6 +221,7 @@
     }).on('select2:select', function(e) {
         const { data } = e.params;
         const { id } = data;
+        console.log(data,id)
         obtenerLiquidacionData(data);
         mostrarTablasAnalisisById(id);
     });

@@ -13,6 +13,7 @@ $routes->match(['get', 'post'], '/Liquidacion/buscarDatosCliente/(:any)', 'Liqui
 $routes->post('/Liquidacion/registrarAnalisisTemp', 'Liquidacion::registrarAnalisisTemp');
 $routes->get('/Liquidacion/obtenerDatos/(:any)', 'Liquidacion::obtenerTodosLosDatos/$1');
 $routes->post('/Liquidacion/actualizarAnalisis/(:any)', 'Liquidacion::actualizarAnalisis/$1');
+$routes->post('/Liquidacion/obtenerTotalValores', 'Liquidacion::obtenerTotalValores');
 
 $routes->post('/Recepcion/registrarTemp', 'Guia::registrartemp');
 $routes->get('/Recepcion/obtenerDatos/(:any)', 'Guia::obtenerTodosLosDatos/$1');
