@@ -141,7 +141,7 @@
             </a>
           </li>
           <li class="nav-item menu-items">
-            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+            <a class="nav-link" data-toggle="collapse" href="<?php echo base_url(); ?>Reportes" aria-expanded="false" aria-controls="auth">
               <span class="menu-icon">
                 <i class="mdi mdi-file-document-box"></i>
               </span>
@@ -372,6 +372,7 @@
     <script src="<?php echo base_url(); ?>/assets/js/registro/servicio.js"></script>
 
     <script src="<?php echo base_url(); ?>/assets/js/programacion/programacion.js"></script>
+    <script src="<?php echo base_url(); ?>/assets/js/reporte/reporte.js"></script>
 
 
 

@@ -23,7 +23,6 @@ class Productos extends BaseController
         ];
 
         $rpta = $model->insertar($datos);
-
         if ($rpta > 0) {
             $productosModel = new ProductosM();
             $productos = $productosModel->obtenerTodos();

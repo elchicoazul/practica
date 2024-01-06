@@ -8,6 +8,10 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Home::index');
 $routes->get('/Guia', 'Guia::index');
 
+//reportes
+$routes->get('/Reportes','Reportes::index');
+$routes->match(['get', 'post'],'/Reportes/ReporteGL','Reportes::ReporteGL');
+
 $routes->get('/Liquidacion', 'Liquidacion::index');
 $routes->match(['get', 'post'], '/Liquidacion/buscarDatosCliente/(:any)', 'Liquidacion::buscarDatosCliente/$1');
 $routes->post('/Liquidacion/registrarAnalisisTemp', 'Liquidacion::registrarAnalisisTemp');
@@ -60,6 +64,8 @@ $routes->match(['get', 'post'], '/Usuarios/ObtenerUsuario', 'Usuarios::ObtenerUs
 $routes->get('/Programaciones/obtenerTodasProgramaciones/(:num)', 'Programaciones::obtenerTodasProgramaciones/$1');
 $routes->post('/Programaciones/eliminar/(:any)', 'Programaciones::eliminar/$1');
 
+//reportes
+$routes->match(['get', 'post'], '/Guia/obtenerGuia', 'Guia::obtenerGuia');
 
 
 

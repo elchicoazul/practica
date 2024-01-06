@@ -1,8 +1,31 @@
 <?= $this->extend('Layout/Dashboard'); ?>
 <?= $this->section('content'); ?>
 
+<style>
+.editable-field {
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.editable-field:focus {
+    outline: none;
+    border-color: #66afe9;
+    box-shadow: 0 0 5px #66afe9;
+}
+.table tbody tr {
+    height: 30px; /* Ajusta la altura según sea necesario */
+}
+
+.table tbody td {
+    padding: 5px; /* Ajusta el espaciado interno según sea necesario */
+}
+
+</style>
+
+
 <div class="row">
-    <div class="col-md-3 grid-margin stretch-card">
+    <div class="col-md-3 grid-margin">
         <div class="card">
             <div class="card-body">
             <h4 class="card-title">Registro de Clientes</h4>
@@ -88,7 +111,7 @@
     </div>
 
         <!-- muestras -->
-        <div class="col-lg-9 grid-margin stretch-card">
+        <div class="col-lg-9 grid-margin">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Lista de Registro de los Usuarios</h4>
