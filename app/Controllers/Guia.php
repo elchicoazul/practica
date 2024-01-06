@@ -52,7 +52,6 @@ class Guia extends BaseController
     }
     public function eliminar($id)
     {
-        log_message('info', 'hola mundo crueles:');
         $model = new GuiaM();
         $data = ["id" =>$id ];
         if ($model->eliminar($data)) {
@@ -101,4 +100,14 @@ class Guia extends BaseController
         }
     }
     
+    public function obtenerGuia()
+    {
+        $guiaModel = new GuiaM();
+        log_message('info','obtenerguia controller');
+        $searchTerm = $this->request->getVar('q');
+
+        $data = $guiaModel->obtenerGuias($searchTerm);
+
+        echo json_encode($data);
+    }
 }
