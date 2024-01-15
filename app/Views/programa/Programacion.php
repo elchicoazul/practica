@@ -108,7 +108,7 @@
     </div>
   </div>
 </div>
-  <script>
+<script>
   $('#search-cliente').select2({
           placeholder: 'Usuario',
           ajax: {
@@ -170,7 +170,7 @@
       $('#total').val(total);
     });
   });
-
+</script>
 
   
 <?= $this->endSection(); ?>

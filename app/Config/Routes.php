@@ -67,7 +67,9 @@ $routes->post('/Programaciones/eliminar/(:any)', 'Programaciones::eliminar/$1');
 //reportes
 $routes->match(['get', 'post'], '/Guia/obtenerGuia', 'Guia::obtenerGuia');
 
+//liquidar
 
+$routes->get('/Liquidar', 'Liquidar::index');
 
 
 
