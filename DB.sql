@@ -121,6 +121,9 @@ CREATE TABLE Scheduling (
   FOREIGN KEY (product_id) REFERENCES Product(id),
 );
 
+
+
+
 -- Creación de la tabla de Saldo de Cuentas
 CREATE TABLE AccountBalance (
   id INT AUTO_INCREMENT PRIMARY KEY,
