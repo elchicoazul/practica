@@ -3,8 +3,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-
-<div class="row">
+<div class="row" >
     <div class="col-md-4 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
@@ -30,17 +29,17 @@
                         </div>
                     </div>
                 </div>
-
+                
 
             </div>
         </div>
     </div>
-    <div class="col-lg-8 grid-margin stretch-card">
-        <div class="card">
-            <div class="card-body">
+    <div class="col-lg-8 grid-margin stretch-card" >
+        <div class="card" >
+            <div class="card-body" >
                 <h4 class="card-title">Tabla de Datos</h4>
                 <button class="btn btn-primary" id="btnGenerarAnalisis">Generar</button>
-                <div class="table-responsive">
+                <div class="table-responsive" id="containerDatosCliente">
                     <table class="table" id="tablaDatos">
                         <thead>
                             <tr>
@@ -77,7 +76,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Tabla de Análisis Au</h4>
-                <div class="table-responsive">
+                <div class="table-responsive" id="tablaAnalisOroTabla">
                     <table class="table" id="tablaAnalisisAU">
                         <thead>
                             <tr>
@@ -116,7 +115,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Tabla de Análisis AG</h4>
-                <div class="table-responsive">
+                <div class="table-responsive" id="tablaAnalisPlataTabla">
                     <table class="table" id="tablaAnalisisAG">
                         <thead>
                             <tr>
@@ -157,7 +156,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Tabla de Análisis Elementos</h4>
-                <div class="table-responsive">
+                <div class="table-responsive" id="tablaAnalisTotalTabla">
                     <table class="table" id="tablaTotal">
                         <thead>
                             <tr>
@@ -200,6 +199,9 @@
                         </tbody>
                     </table>
                 </div>
+                <div style="width: 100%;display: flex;justify-content: end;padding: 1rem;">
+                  <button class="btn btn-primary" style="text-align: right;" id="liquidacion">Liquidar</button>
+                </div>
             </div>
         </div>
     </div>
@@ -224,8 +226,8 @@
         console.log(data,id)
         obtenerLiquidacionData(data);
         mostrarTablasAnalisisById(id);
+        guardarLiquidacion(id);
     });
-
 
     function leyes(id) {
         var secoValor = parseFloat(document.getElementById('seco-' + id).value);

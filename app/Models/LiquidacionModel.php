@@ -70,7 +70,98 @@ class LiquidacionModel extends Model {
                  ->where('element', $element)
                  ->update($analisisData);
     }
-    
+    public function guardarLiquidacion($id, $id_guia){
+        $query = $this->db->table('Liquidation');
+        $query->insert([
+          'client_id' => $id,
+          'id_guide'=> $id_guia,
+          'fecha_create' => date('Y-m-d H:i:s'),
+      ]);
+      return $this->db->InsertId();
+    }
+    public function guardarLiquidacionDetail($datos)
+    {
+        $query = $this->db->table('LiquidationDetail');
+        $query->insert($datos);
+        return $this->db->InsertId();
+    }
+    public function eliminarTemp($id) {
+      $query1 = $this->db->table('LiquidationDetailTemp')
+                 ->where('client_id', $id)
+                 ->delete();
+      $quer2=  $this->db->table('ServiceTemp')
+                 ->where('client_id', $id)
+                 ->delete();
+        return $quer2;
+    }
+    public function guardarTempService($datos)
+    {
+        $query = $this->db->table('ServiceTemp');
+        $query->insert($datos);
+        return $this->db->InsertId();
+    }
+    public function obtenerServicios($id) {
+        $query = $this->db->table('ServiceTemp')
+                          ->select('*')
+                          ->where('client_id', $id)
+                          ->get();
+        return $query->getResultArray();
+    }
+    public function guardarServiceLiquidation($datos)
+    {
+        $query = $this->db->table('ServiceLiquidation');
+        $query->insert($datos);
+        return $this->db->InsertId();
+    }
+    public function obtenerDetalleLiquidacion($id) {
+        $query = $this->db->table('LiquidationDetail')
+                          ->select('*')
+                          ->where('id_liquidation', $id)
+                          ->get();
+        return $query->getResultArray();
+    }
+    public function obtenerServiciosLiquidacion($id) {
+        $query = $this->db->table('ServiceLiquidation')
+                          ->select('*')
+                          ->where('id_liquidation', $id)
+                          ->get();
+        return $query->getResultArray();
+    }
+    public function obtenerLiquidacionBase($id) {
+      $query = $this->db->table('Liquidation')
+                        ->select('*')
+                        ->where('id', $id)
+                        ->get();
+      return $query->getResultArray();
+    }
+      public function obtenerGuiaActualCliente($id)
+    {
+      $query = $this->db->table('Guide')
+                        ->select('*')
+                        ->where('client_id', $id)
+                        ->where('guideStatus', 0)
+                        ->get();
+        return $query->getResultArray();
+    } 
+    public function cambiarEstadoGuide($id)
+    {
+      $query = $this->db->table('Guide')
+                        ->where('id', $id)
+                        ->update(['guideStatus' => 1]);
+        return $query;
+    }
+    public function obtenerDatosGuiaLiquidation($id)
+    {
+        $builder = $this->db->table('Guide');
+        $builder->select('Guide.guide_code, IngressGuide.wet_weight, IngressGuide.moisture_percentage, IngressGuide.dry_weight');
+        $builder->join('IngressGuide', 'Guide.id = IngressGuide.guide_id');
+        $builder->where('Guide.id', $id);;
+
+        $query = $builder->get();
+
+        return $query->getResultArray();
+    }
+  
 }
 
 ?>
