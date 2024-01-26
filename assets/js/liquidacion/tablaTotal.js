@@ -184,7 +184,7 @@ const mostrarTablaTotal = async (edit) => {
       <th class="" colspan="2">TOTAL A PAGAR</th>
       <th class="text-center"></th>
       <th class="text-center">US$</th>
-      <th class="text-center">${pagoTotal}</th>
+      <th class="text-center" id="totalLiquidacion">${pagoTotal}</th>
     </tr>
     `;
   $("#tablaTotal tbody").append(tablaTotalBody);

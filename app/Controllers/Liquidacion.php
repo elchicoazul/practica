@@ -143,9 +143,10 @@ class Liquidacion extends BaseController
 
     public function guardarLiquidacion($id) {
         $data = $this->request->getPost('data');
+        $total = $this->request->getPost('total');
         $liquidacionmodel = new LiquidacionModel();
         $guia = $liquidacionmodel->obtenerGuiaActualCliente($id);
-        $result = $liquidacionmodel->guardarLiquidacion($id,$guia[0]['id']);
+        $result = $liquidacionmodel->guardarLiquidacion($id,$guia[0]['id'],$total);
         foreach ($data as $userData) {
           $id_liquidation= $result;
           $client_id = $userData['client_id'];

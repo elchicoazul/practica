@@ -63,6 +63,7 @@ CREATE TABLE Liquidation (
   client_id INT(11) NOT NULL,
   fecha_create DATETIME DEFAULT NULL,
   id_guide INT(11) DEFAULT NULL,
+  total_liquidation DECIMAL(10,2) DEFAULT null,
   PRIMARY KEY (id)
   FOREIGN KEY (client_id) REFERENCES User(id)
 ) 
