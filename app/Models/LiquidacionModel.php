@@ -86,12 +86,13 @@ class LiquidacionModel extends Model {
                  ->where('element', $element)
                  ->update($analisisData);
     }
-    public function guardarLiquidacion($id, $id_guia){
+    public function guardarLiquidacion($id, $id_guia, $total){
         $query = $this->db->table('Liquidation');
         $query->insert([
           'client_id' => $id,
           'id_guide'=> $id_guia,
           'fecha_create' => date('Y-m-d H:i:s'),
+          'total_liquidation'=>$total
       ]);
       return $this->db->InsertId();
     }

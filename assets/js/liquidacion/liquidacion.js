@@ -170,6 +170,10 @@ function mostrarTablasAnalisisById(id) {
 }
 function guardarLiquidacion(id) {
   document.getElementById("liquidacion").onclick = () => {
+    const totalLiquidacion = Number(
+      document.getElementById("totalLiquidacion").innerHTML
+    );
+
     $.ajax({
       url: "http://localhost/practica/Liquidacion/obtenerDatos/" + id,
       type: "GET",
@@ -178,7 +182,7 @@ function guardarLiquidacion(id) {
       $.ajax({
         url: "http://localhost/practica/Liquidacion/guardarLiquidacion/" + id,
         type: "POST",
-        data: { id: Number(id), data: datos },
+        data: { id: Number(id), data: datos, total: totalLiquidacion },
         dataType: "json",
       }).done(function (data) {
         if (data.estado == 200) {
