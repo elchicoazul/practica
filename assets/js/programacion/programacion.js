@@ -280,8 +280,10 @@ function tempAddLiq(id){
 
 //metodos para transferir los datos de la tabla temporalfac
 
-function btnLiqTransferirDatos() {
+function btnTransferirDatosfac() {
     // Confirmación para transferir los datos
+    id_client = search_cliente=$("#search-cliente").val();
+    alert(id_client);
     swal
       .fire({
         title: 'Transferir Datos',
@@ -297,10 +299,9 @@ function btnLiqTransferirDatos() {
         if (result.value) {
           // Realizar la solicitud AJAX para transferir los datos
           $.ajax({
-            url: 'http://localhost/practica/LiquidarFac/transferir', // Ajuste esta URL a su ruta de API
-            type: 'POST',
+            url: 'http://localhost/practica/LiquidarFac/transferir/'+id_client, // Ajuste esta URL a su ruta de API
+            type: 'GET',
             dataType: 'json',
-            data: userData, // Enviar userData como parte de la solicitud
             success: function (response) {
               if (response.estado == 200) {
                 swal.fire('Transferido!', 'Los datos han sido transferidos con éxito.', 'success');

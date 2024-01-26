@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\LiquidacionModel;
 use App\Models\ProgramacionM;
 
 class Liquidarfac extends BaseController
@@ -88,38 +89,32 @@ class Liquidarfac extends BaseController
     }
 
     //transfiere los datos de la tabla temporalfac a liquidarfac y detail 
-    public function transferirDatos()
+    public function transferirDatos($id_client)
     {
+        log_message('info','estmaos en el contralador transferirdatos');
+
         $temporalModel = new ProgramacionM();
-        $guia = new ProgramacionM();
-        $codigo_cliente = $this->request->getPost('codigo');
-        $codigo_guia = $this->request->getPost('codigo_guia');
-        $fecha = $this->request->getPost('fecha');
-        $guia_remision = $this->request->getPost('guia');
-        $guias = new ProgramacionM();
+        $liquidacion = new LiquidacionModel();
+        $liquidaciones = new LiquidacionModel();
+
         $data=[
-            'client_id'=>$codigo_cliente,
-            'date'=>$fecha,
-            'guide_code'=>$codigo_guia,
-            'shipment_guide'=>$guia_remision,
-            'guideStatus'=>0
+            'id_client'=>$id_client,
+            'date'=>date('Y-m-d')
         ];
-        $rpta = $guias->guardarguia($data);
+        $rpta = $liquidaciones->guardarliquidacionfac($data);
 
         // Obtener todos los registros de la tabla temporal para el user_id específico
-        $datosTemporales = $temporalModel->obtenerDatos($codigo_cliente);
+        $datosTemporales = $temporalModel->obtenerTemporalFac($id_client);
 
         // Verificar si hay datos para transferir
         if (!empty($datosTemporales)) {
             foreach ($datosTemporales as $dato) {
                 $dataid=$dato['id'];
                 unset($dato['id']);
-                $dato['guide_id'] = $codigo_cliente; 
-                $guia->insertar($dato);
-                $data = ["id" =>$dataid];
-                $dato['guide_id'] = $rpta;
+                $dato['id_liquidarfac'] = $rpta; 
+                $liquidacion->insertar($dato);
                 // Opcional: Eliminar el registro de la tabla temporal después de la transferencia
-                $temporalModel->eliminar($data);
+                $temporalModel->deletebyid($dataid);
             }
 
             return $this->response->setJSON(['estado' => 200, 'mensaje' => 'Datos transferidos con éxito']);

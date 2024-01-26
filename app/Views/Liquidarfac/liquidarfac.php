@@ -91,7 +91,7 @@
                 <h4 class="card-title">Tabla Temporal para liquidar</h4>
                 
                 <!-- Agrega el botón "Liquidar" aquí -->
-                <button class="btn btn-primary mb-3"  onclick="btnLiqTransferirDatos()">Liquidar</button>
+                <button class="btn btn-primary mb-3"  onclick="btnTransferirDatosfac()">Liquidar</button>
 
                 <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
                     <!-- Agrega un estilo para limitar la altura y agregar una barra de desplazamiento -->

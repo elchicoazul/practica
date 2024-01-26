@@ -23,7 +23,8 @@ class Programaciones extends BaseController
             "amount" => $this->request->getPost("cantidad"),
             "price" => $this->request->getPost("price"),
             "total" => $this->request->getPost("total"),
-            "estado" => 0,
+            "status" => 0,
+            "temp" => 0
         ];
 
         $rpta = $model->insertar($datos);   

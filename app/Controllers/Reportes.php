@@ -13,39 +13,36 @@ class Reportes extends BaseController
 
     public function ReporteGL()
     {
-
+        log_message('info','reportesGL');
         // Retrieve data from the AJAX request
         $filtro = $this->request->getPost('filtro');
         $cliente = $this->request->getPost('cliente');
         $fechaInicio = $this->request->getPost('fechaInicio');
         $fechaFin = $this->request->getPost('fechaFin');
-        $codigoGuia = $this->request->getPost('codigoGuia');
-
+        $codigo = $this->request->getPost('codigo');
+    
         $data = [
             'id' => $cliente,
             'fechaInicio' => $fechaInicio,
             'fechaFin' => $fechaFin,
-            'guide_code' => $codigoGuia
+            'codigo' => $codigo
         ];
-
-        if ($filtro=='guia') {
-
-            log_message('error', 'reporte');
-            log_message('info', 'estamos en controlador reportes');
-            
+    
+        if ($filtro == 'guia') {
             $Guia = new GuiaM();
             $rpta = $Guia->FiltrarGuia($data);
-
-            if ($rpta>0) {
-                return $this->response->setJSON($rpta);
-            } else {
-                return $this->response->setJSON(['estado' => 400, 'mssg' => 'Producto no registrado con éxito']);
-            }
-
-        }/*else {
+        } elseif ($filtro == 'liquidacion') {
             $Liquidacion = new LiquidacionModel();
             $rpta = $Liquidacion->FiltrarLiquidacion($data);
-        }*/
-
+        } else {
+            return $this->response->setJSON(['estado' => 400, 'mssg' => 'Filtro no válido']);
+        }
+    
+        if ($rpta) {
+            return $this->response->setJSON($rpta);
+        } else {
+            return $this->response->setJSON(['estado' => 400, 'mssg' => 'No se encontraron datos']);
+        }
     }
+    
 }

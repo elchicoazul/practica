@@ -83,5 +83,5 @@ $routes->get('/Programaciones/obtenerTodasProgramacionesTemp/(:num)', 'Programac
 $routes->get('/Liquidarfac/obtenerDatosTemporalesFac/(:num)', 'Liquidarfac::obtenerDatosTemporalesFac/$1');
 $routes->get('/Programaciones/tempDelete/(:any)/(:any)', 'Liquidarfac::tempdelete/$1/$2');
 $routes->get('/Programaciones/obtenerTodasLiquidacionesTemp/(:num)', 'Programaciones::obtenerTodasLiquidacionesTemp/$1');
-$routes->match(['get', 'post'], '/LiquidarFac/transferir', 'LiquidarFac::transferirDatos');
+$routes->get('/LiquidarFac/transferir/(:any)', 'Liquidarfac::transferirDatos/$1');
 

@@ -5,8 +5,7 @@ use Kint\Parser\ToStringPlugin;
 class GuiaM extends Model { 
     
     protected $table = 'guide';
-    public function FiltrarGuia($data)
-{
+    public function FiltrarGuia($data){
     $builder = $this->db->table('Guide');
     $builder->select('Guide.guide_code, Guide.date, Guide.shipment_guide, Guide.guideStatus, User.username');
     $builder->join('User', 'Guide.client_id = User.id');
@@ -16,8 +15,8 @@ class GuiaM extends Model {
         $builder->where('Guide.client_id', $data['id']);
     }
 
-    if (!empty($data['guide_code'])) {
-        $builder->where('Guide.guide_code', $data['guide_code']);
+    if (!empty($data['codigo'])) {
+        $builder->where('Guide.guide_code', $data['codigo']);
     }
 
     if (!empty($data['fechaInicio']) && !empty($data['fechaFin'])) {

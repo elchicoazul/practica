@@ -112,17 +112,17 @@ CREATE TABLE Product (
 );
 
 -- Creación de la tabla de Programación
-CREATE TABLE Scheduling (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  client_id INT NOT NULL,
-  product_id INT NOT NULL,
-  price DECIMAL(10,2), 
-  amount DECIMAL(10,2),
-  total DECIMAL(10,2),
-  status TINYINT,
-  FOREIGN KEY (client_id) REFERENCES User(id),
-  FOREIGN KEY (product_id) REFERENCES Product(id),
-);
+  CREATE TABLE Scheduling (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    client_id INT NOT NULL,
+    product_id INT NOT NULL,
+    price DECIMAL(10,2), 
+    amount DECIMAL(10,2),
+    total DECIMAL(10,2),
+    status TINYINT,
+    FOREIGN KEY (client_id) REFERENCES User(id),
+    FOREIGN KEY (product_id) REFERENCES Product(id),
+  );
 
 
 

@@ -149,7 +149,7 @@ class ProgramacionM extends Model {
         $query = $this->db->table('liquidation');
         //$query->join('product', 'product.id = scheduling.product_id');
         //$query->select('scheduling.client_id,scheduling.id,name,scheduling.price,scheduling.amount,scheduling.total');
-        $query->select('client_id,id,reception_id,price');
+        $query->select('client_id,id,id_guide,price');
         $query->where('liquidation.id',$id);
 
         return $query->get()->getResult(); 
@@ -163,30 +163,4 @@ class ProgramacionM extends Model {
         return $query->get()->getResult();
     }
 
-    
-
-    //metodos para la tranferencia de datos de temporalfac
-    public function guardarguia($datos){
-        $query = $this->db->table('Guide');
-        $query->insert($datos);
-        return $this->db->InsertId();
-    }
-    public function insertar1($datos){
-        $query = $this->db->table('IngressGuide');
-        $query->insert($datos);
-        return $this->db->InsertId();
-    }
-
-    public function obtenerDatos($userId) {
-        // Utilizar el query builder del modelo con una condición where
-        $query = $this->db->table('IngressGuideTemp')
-                          ->where('user_id', $userId)
-                          ->get();
-        return $query->getResultArray();
-    }
-    public function eliminar1($data) {
-        $query = $this->db->table('IngressGuideTemp');
-        $query->where($data);
-        return $query->delete();
-    }
 }

@@ -30,6 +30,7 @@
                         <div class="col-md-2">
                             <label for="id-filtro">Filtros de busqueda</label>
                             <select class="form-control" name="id-filtro" id="id-filtro">
+                              <option value="guia">-- --</option>
                               <option value="guia">guia</option>
                               <option value="liquidacion">liquidacion</option>
                             </select>
@@ -51,11 +52,11 @@
                         <div class="col-md-2">
                             <label for="search-product4">Guia(codigo)</label>
                             <!--<input class="form-control" name="codigo-guia"  id="codigo-guia">-->
-                            <select class="form-control js-example-basic-single" id="codigo-guia" placeholder="codigo-guia" style="height: 40px;"></select>
+                            <select class="form-control js-example-basic-single" id="codigo" placeholder="codigo" style="height: 40px;"></select>
 
                         </div>
                         <div class="col-md-2">
-                            <button class="btn btn-primary" onclick="FiltrarGuia()">Buscar</button>
+                            <button class="btn btn-primary" onclick="FiltrarReporte()">Buscar</button>
                         </div>
                     </div>
                 </div>
@@ -64,13 +65,13 @@
         </div>
     </div>
   <!-- muestras -->
-  <div class="col-lg-12 grid-margin stretch-card">
+  <div id="tabla-guias" class="col-lg-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
         <h4 class="card-title">Guias</h4>
         <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
           <!-- Agrega un estilo para limitar la altura y agregar una barra de desplazamiento -->
-          <table class="table tabla-reportes">
+          <table class="table tabla-reportes-guia">
             <thead>
               <tr>
                 <th>Cliente</th>
@@ -90,6 +91,34 @@
       </div>
     </div>
   </div>
+
+  <div id="tabla-liquidacion" class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Liquidacion</h4>
+        <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+          <!-- Agrega un estilo para limitar la altura y agregar una barra de desplazamiento -->
+          <table class="table tabla-reportes-liquidacion">
+            <thead>
+              <tr>
+                <th>Cliente</th>
+                <th>Fecha Registro</th>
+                <th>idGuia</th>
+                <th>Precio</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Ejemplo de fila -->
+              <!-- Puede agregar más filas según sea necesario -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 </div>
 
 
@@ -117,7 +146,7 @@ $('#cliente').select2({
 
 //buscar por el codigo de la guia
 
-$('#codigo-guia').select2({
+$('#codigo').select2({
   // Agrega una opción vacía o predeterminada al principio de la lista
   data: [{ id: '', text: 'Seleccione un CodigoGuia' }],
 
@@ -136,6 +165,33 @@ $('#codigo-guia').select2({
   tags: false // Desactiva la opción de entrada de texto libre
 });
 
+//para ocultar y mostrar las tablas
+
+$(document).ready(function () {
+        // Oculta ambas tablas al inicio
+        $('#tabla-guias').hide();
+        $('#tabla-liquidacion').hide();
+
+        // Maneja el cambio en el campo de filtro
+        $('#id-filtro').change(function () {
+            var filtroSeleccionado = $(this).val();
+
+            // Oculta ambas tablas al principio
+            $('#tabla-guias').hide();
+            $('#tabla-liquidacion').hide();
+
+            // Muestra la tabla correspondiente al filtro seleccionado
+            if (filtroSeleccionado === 'guia') {
+                $('#tabla-guias').show();
+            } else if (filtroSeleccionado === 'liquidacion') {
+                $('#tabla-liquidacion').show();
+            }
+        });
+    });
 </script>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="<?php echo base_url(); ?>/assets/js/impresion/impresion.js"></script>
+
 
 <?= $this->endSection(); ?>

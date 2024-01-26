@@ -251,7 +251,7 @@
 
     <script src="<?php echo base_url(); ?>/assets/js/programacion/programacion.js"></script>
     <script src="<?php echo base_url(); ?>/assets/js/reporte/reporte.js"></script>
-
+    
 
 
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>

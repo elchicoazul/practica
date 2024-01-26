@@ -5,18 +5,34 @@ class LiquidacionModel extends Model {
     protected $table = 'user';
     protected $primaryKey = 'id';
 
-    public function FiltrarLiquidacion($clientId)
+    public function FiltrarLiquidacion($data)
     {
-        $builder = $this->db->table('Guide');
-        $builder->select('Guide.guide_code, IngressGuide.wet_weight, IngressGuide.moisture_percentage, IngressGuide.dry_weight');
-        $builder->join('IngressGuide', 'Guide.client_id = IngressGuide.guide_id');
-        $builder->where('Guide.client_id', $clientId);
-        $builder->where('Guide.guideStatus', 0);
-
+        $builder = $this->db->table('liquidation');
+        $builder->select('liquidation.id_guide, liquidation.fecha_create, User.username,price');
+        $builder->join('user', 'liquidation.client_id = user.id');
+    
+        // Construir condiciones de búsqueda
+        if (!empty($data['id'])) {
+            $builder->where('liquidation.client_id', $data['id']);
+        }
+    
+        if (!empty($data['codigo'])) {
+            $builder->where('liquidation.id_guide', $data['codigo']);
+        }
+    
+        if (!empty($data['fechaInicio']) && !empty($data['fechaFin'])) {
+            $fechaInicio = date('Y-m-d', strtotime($data['fechaInicio']));
+            $fechaFin = date('Y-m-d', strtotime($data['fechaFin']));
+            $builder->where('liquidation.fecha_create BETWEEN "' . $fechaInicio . '" AND "' . $fechaFin . '"');
+        }
+    
+        // Realizar la consulta
         $query = $builder->get();
-
+    
         return $query->getResultArray();
-    } 
+    }
+    
+
     public function obtenerClienteGuiaData($clientId)
     {
         $builder = $this->db->table('Guide');
@@ -134,8 +150,7 @@ class LiquidacionModel extends Model {
                         ->get();
       return $query->getResultArray();
     }
-      public function obtenerGuiaActualCliente($id)
-    {
+      public function obtenerGuiaActualCliente($id){
       $query = $this->db->table('Guide')
                         ->select('*')
                         ->where('client_id', $id)
@@ -143,15 +158,13 @@ class LiquidacionModel extends Model {
                         ->get();
         return $query->getResultArray();
     } 
-    public function cambiarEstadoGuide($id)
-    {
+    public function cambiarEstadoGuide($id){
       $query = $this->db->table('Guide')
                         ->where('id', $id)
                         ->update(['guideStatus' => 1]);
         return $query;
     }
-    public function obtenerDatosGuiaLiquidation($id)
-    {
+    public function obtenerDatosGuiaLiquidation($id){
         $builder = $this->db->table('Guide');
         $builder->select('Guide.guide_code, IngressGuide.wet_weight, IngressGuide.moisture_percentage, IngressGuide.dry_weight');
         $builder->join('IngressGuide', 'Guide.id = IngressGuide.guide_id');
@@ -161,7 +174,18 @@ class LiquidacionModel extends Model {
 
         return $query->getResultArray();
     }
-  
-}
+    
+    //liquidar fac
 
+    public function guardarliquidacionfac($datos){
+        $query = $this->db->table('liquidarfac');
+        $query->insert($datos);
+        return $this->db->InsertId();
+    }
+    public function insertar($datos){
+        $query = $this->db->table('liquidarfacdetail');
+        $query->insert($datos);
+        return $this->db->InsertId();
+    }
+}
 ?>

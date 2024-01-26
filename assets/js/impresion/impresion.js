@@ -4,6 +4,7 @@ document.getElementById("searchDetail").onclick = () => {
 };
 
 function exportarAPDF(idLiquidation) {
+  alert(idLiquidation);
   $.ajax({
     url:
       "http://localhost/practica/Liquidacion/obtenerDetalleLiquidacion/" +

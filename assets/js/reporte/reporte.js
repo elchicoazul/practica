@@ -1,12 +1,11 @@
-function FiltrarGuia() {
-
+function FiltrarReporte() {
     // Validación de campos
     var cliente = $('#cliente').val();
     var fechaInicio = $('#fecha-inicio').val();
     var fechaFin = $('#fecha-fin').val();
-    var codigoGuia = $('#codigo-guia').val();
-
-    if (cliente == '' && fechaInicio == '' && fechaFin == '' && codigoGuia == '') {
+    var codigo = $('#codigo').val();
+    
+    if (cliente == '' && fechaInicio == '' && fechaFin == '' && codigo == '') {
         swal.fire('Error!', 'Al menos un campo debe ser completado', 'error');
         return false;
     }
@@ -16,7 +15,7 @@ function FiltrarGuia() {
         swal.fire('Error!', 'Debes ingresar la fecha de fin', 'error');
         return false;
     }
-
+    
     // Verificar si se ingresó la fecha de fin sin fecha de inicio
     if (fechaFin != '' && fechaInicio == '') {
         swal.fire('Error!', 'Debes ingresar la fecha de inicio', 'error');
@@ -28,19 +27,23 @@ function FiltrarGuia() {
     var cliente = document.getElementById("cliente").value;
     var fechaInicio = document.getElementById("fecha-inicio").value;
     var fechaFin = document.getElementById("fecha-fin").value;
-    var codigoGuia = document.getElementById("codigo-guia").value;
-
+    var codigo = document.getElementById("codigo").value;
+    
     // Construct the search parameters object
     var model = {
         filtro: filtro,
         cliente: cliente,
         fechaInicio: fechaInicio,
         fechaFin: fechaFin,
-        codigoGuia: codigoGuia
+        codigo: codigo
     };
-
+    
     // Limpiar la tabla actual antes de realizar la nueva consulta
-    $('.tabla-reportes tbody').empty();
+    if (filtro === 'guia') {
+        $('.tabla-reportes-guia tbody').empty();
+    } else if (filtro === 'liquidacion') {
+        $('.tabla-reportes-liquidacion tbody').empty();
+    }
 
     // Realizar la consulta AJAX
     $.ajax({
@@ -50,23 +53,42 @@ function FiltrarGuia() {
         dataType: 'json',
     }).done(function (datos) {
         // Verificar si hay datos en la respuesta
+        console.log(datos);
         if (datos && datos.length > 0) {
-            // Iterar sobre los datos y añadirlos a la tabla
+            // Iterar sobre los datos y añadirlos a la tabla correspondiente
             datos.forEach(function (item) {
-                var fila =
-                    '<tr>' +
-                    '<td>' + item.username + '</td>' +
-                    '<td>' + item.date + '</td>' +
-                    '<td>' + item.guide_code + '</td>' +
-                    '<td>' + item.shipment_guide + '</td>' +
-                    '<td>' + item.guideStatus + '</td>' +
-                    '<td>' +
-                    '<button type="button" class="btn btn-primary btn-icon mb-1" onclick="imprimir()">' +
-                    '<i class="mdi mdi-printer"></i>' +
-                    '</button>' +
-                    '</td>' +
-                    '</tr>';
-                $('.tabla-reportes tbody').append(fila);
+                // Construir la fila según el grupo de datos
+                var fila = '';
+                if (filtro === 'guia') {
+                    fila = '<tr>' +
+                        '<td>' + item.username + '</td>' +
+                        '<td>' + item.date + '</td>' +
+                        '<td>' + item.guide_code + '</td>' +
+                        '<td>' + item.shipment_guide + '</td>' +
+                        '<td>' + item.guideStatus + '</td>' +
+                        '<td>' +
+                        '<button type="button" class="btn btn-primary btn-icon mb-1" onclick="exportarAPDF(51)">' +
+                        '<i class="mdi mdi-printer"></i>' +
+                        '</button>' +
+                        '</td>' +
+                        '</tr>';
+                    // Agregar la fila a la tabla de guías
+                    $('.tabla-reportes-guia tbody').append(fila);
+                } else if (filtro === 'liquidacion') {
+                    fila = '<tr>' +
+                        '<td>' + item.username + '</td>' +
+                        '<td>' + item.fecha_create + '</td>' +
+                        '<td>' + item.id_guide + '</td>' +
+                        '<td>' + item.price + '</td>' +
+                        '<td>' +
+                        '<button type="button" class="btn btn-primary btn-icon mb-1" onclick="exportarAPDF(51)">' +
+                        '<i class="mdi mdi-printer"></i>' +
+                        '</button>' +
+                        '</td>' +
+                        '</tr>';
+                    // Agregar la fila a la tabla de liquidaciones
+                    $('.tabla-reportes-liquidacion tbody').append(fila);
+                }
             });
         } else {
             // Mostrar mensaje de error cuando no hay datos
