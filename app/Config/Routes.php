@@ -6,6 +6,7 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get('/', 'Home::index');
+$routes->post('/descargar', 'tcpdfexample::index');
 $routes->get('/Guia', 'Guia::index');
 
 $routes->get('/Liquidacion', 'Liquidacion::index');
