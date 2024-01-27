@@ -86,7 +86,7 @@ class Guia extends BaseController
             foreach ($datosTemporales as $dato) {
                 $dataid=$dato['id'];
                 unset($dato['id']);
-                $dato['guide_id'] = $codigo_cliente; 
+                $dato['guide_id'] = $rpta; 
                 $guia->insertar($dato);
                 $data = ["id" =>$dataid];
                 $dato['guide_id'] = $rpta;

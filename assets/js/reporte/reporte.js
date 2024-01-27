@@ -67,7 +67,7 @@ function FiltrarReporte() {
                         '<td>' + item.shipment_guide + '</td>' +
                         '<td>' + item.guideStatus + '</td>' +
                         '<td>' +
-                        '<button type="button" class="btn btn-primary btn-icon mb-1" onclick="exportarAPDF(51)">' +
+                        '<button type="button" class="btn btn-primary btn-icon mb-1" onclick="exportarAPDFguia(' + item.id + ')">' +
                         '<i class="mdi mdi-printer"></i>' +
                         '</button>' +
                         '</td>' +
@@ -79,9 +79,9 @@ function FiltrarReporte() {
                         '<td>' + item.username + '</td>' +
                         '<td>' + item.fecha_create + '</td>' +
                         '<td>' + item.id_guide + '</td>' +
-                        '<td>' + item.price + '</td>' +
+                        '<td>' + item.total_liquidation + '</td>' +
                         '<td>' +
-                        '<button type="button" class="btn btn-primary btn-icon mb-1" onclick="exportarAPDF(51)">' +
+                        '<button type="button" class="btn btn-primary btn-icon mb-1" onclick="exportarAPDF(' + item.id + ')">' +
                         '<i class="mdi mdi-printer"></i>' +
                         '</button>' +
                         '</td>' +

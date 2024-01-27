@@ -50,7 +50,7 @@
                             <input class="form-control" type="datetime-local" name="fecha-fin" id="fecha-fin">
                         </div>
                         <div class="col-md-2">
-                            <label for="search-product4">Guia(codigo)</label>
+                            <label for="search-product4">Codigo</label>
                             <!--<input class="form-control" name="codigo-guia"  id="codigo-guia">-->
                             <select class="form-control js-example-basic-single" id="codigo" placeholder="codigo" style="height: 40px;"></select>
 

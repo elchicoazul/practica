@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\LiquidacionModel;
+use App\Models\Usuario;
 
 class Liquidacion extends BaseController
 {
@@ -211,4 +212,17 @@ class Liquidacion extends BaseController
       ];
       return $this->response->setJSON($datos);
     }
+
+    public function obtenerDetalleGuia($id) {
+        log_message('info','detalle guia');
+        $liquidacionmodel = new LiquidacionModel();
+        $guia = $liquidacionmodel->obtenerDatosGuiaLiquidation($id);
+        $usuario = new usuario();
+        $user = $usuario->obtenerusuariobyid($guia[0]['client_id']);
+        $datos = [
+          'guia' => $guia,
+          'usuario'=> $user
+        ];
+        return $this->response->setJSON($datos);
+      }
 }

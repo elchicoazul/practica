@@ -173,7 +173,8 @@ function guardarLiquidacion(id) {
     const totalLiquidacion = Number(
       document.getElementById("totalLiquidacion").innerHTML
     );
-
+    alert('estamos en guarda liqu');
+    
     $.ajax({
       url: "http://localhost/practica/Liquidacion/obtenerDatos/" + id,
       type: "GET",

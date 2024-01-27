@@ -15,7 +15,7 @@
                 <div class="form-group">
                     <div class="input-group">
                         <select class="form-control js-example-basic-single" id="cliente" placeholder="Cliente" style="height: 100px;"></select>
-                        <input type="text" class="form-control" id="codigo" placeholder="Código" aria-label="Código">
+                        <input type="text" class="form-control" id="codigo_client" placeholder="Código" aria-label="Código">
                     </div>
                 </div>
 
@@ -58,16 +58,16 @@
     <div class="col-md-3 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Recepcion</h4>
+                <h4 class="card-title">Recepción</h4>
                 <p class="card-description">Ingrese los datos requeridos</p>
 
                 <!-- Peso Bruto -->
                 <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text">Kg</span>
+                            <span class="input-group-text">Gr</span>
                         </div>
-                        <input onkeyup="calcularPesos()" type="number" step="0.01" class="form-control" placeholder="Peso Bruto KG" id="pesoBruto">
+                        <input onkeyup="calcularPesos()" type="number" step="0.01" class="form-control" placeholder="Peso Bruto Gr" id="pesoBruto">
                     </div>
                 </div>
 
@@ -75,9 +75,9 @@
                 <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text">Kg</span>
+                            <span class="input-group-text">Gr</span>
                         </div>
-                        <input onkeyup="calcularPesos()" type="number" step="0.01" class="form-control" placeholder="Tara KG" id="tara">
+                        <input onkeyup="calcularPesos()" type="number" step="0.01" class="form-control" placeholder="Tara Gr" id="tara">
                     </div>
                 </div>
 
@@ -85,9 +85,9 @@
                 <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text">Kg</span>
+                            <span class="input-group-text">Gr</span>
                         </div>
-                        <input onkeyup="calcularPesos()" type="number" step="0.01" class="form-control" placeholder="Peso Muestra KG" id="pesoMuestra">
+                        <input onkeyup="calcularPesos()" type="number" step="0.01" class="form-control" placeholder="Peso Muestra Gr" id="pesoMuestra">
                     </div>
                 </div>
 
@@ -95,9 +95,9 @@
                 <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text">Kg</span>
+                            <span class="input-group-text">Gr</span>
                         </div>
-                        <input disabled style="color: red;" type="number" step="0.01" class="form-control color-red" placeholder="Peso Húmedo KG" id="pesoHumedo">
+                        <input disabled style="color: red;" type="number" step="0.01" class="form-control color-red" placeholder="Peso Húmedo Gr" id="pesoHumedo">
                     </div>
                 </div>
 
@@ -115,9 +115,9 @@
                 <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text">Kg</span>
+                            <span class="input-group-text">Gr</span>
                         </div>
-                        <input disabled style="color: red;" type="number" step="0.01" class="form-control" placeholder="Peso Seco KG" id="pesoSeco">
+                        <input disabled style="color: red;" type="number" step="0.01" class="form-control" placeholder="Peso Seco Gr" id="pesoSeco">
                     </div>
                 </div>
 
@@ -136,12 +136,12 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>P. Bruto (KG)</th>
-                                <th>Tara (KG)</th>
-                                <th>P. Muestra (KG)</th>
-                                <th>P. Húmedo (KG)</th>
+                                <th>P. Bruto (Gr)</th>
+                                <th>Tara (Gr)</th>
+                                <th>P. Muestra (Gr)</th>
+                                <th>P. Húmedo (Gr)</th>
                                 <th>Humedad (%)</th>
-                                <th>P. Seco (KG)</th>
+                                <th>P. Seco (Gr)</th>
                                 <th>Acción</th>
                             </tr>
                         </thead>
@@ -158,6 +158,20 @@
 
 </div>
 
+<script>
+    $(document).ready(function () {
+        $('#codigo_client').hide();
+        
+        // Al cargar la página, establecer la fecha por defecto (hoy) en el campo de fecha
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); // Enero es 0!
+        var yyyy = today.getFullYear();
+
+        today = yyyy + '-' + mm + '-' + dd;
+        $('#fecha').val(today);
+    });
+</script>
 <script>
     function calcularPesos() {
         var pesoBruto = parseFloat($("#pesoBruto").val()) || 0;
@@ -194,7 +208,7 @@
 
         // Actualizar el input del stock
         $('#dni_ruc').val(data.dni_ruc);
-        $('#codigo').val(data.id);
+        $('#codigo_client').val(data.id);
         obtenerDatosActualizados(data.id);
         // Actualizar el input del precio
 

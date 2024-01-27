@@ -254,8 +254,7 @@ function obtenerDatosLiquidacionLiquidar(id) {
             console.log(item);
             var fila = '<tr>' +
                 '<td>' + item.id + '</td>' +
-                '<td>' + item.reception_id + '</td>' +
-                '<td>' + item.price + '</td>' +
+                '<td>' + item.total_liquidation + '</td>' +
                 '<td>' +
                 '<button class="btn btn-success btn-sm btn-icon mb-1" onclick="tempAddLiq(' + item.id + ')" style="line-height: 1;">' +
                 '<i class="mdi mdi-plus" style="margin-top: -2px;"></i>' +
@@ -283,7 +282,6 @@ function tempAddLiq(id){
 function btnTransferirDatosfac() {
     // Confirmación para transferir los datos
     id_client = search_cliente=$("#search-cliente").val();
-    alert(id_client);
     swal
       .fire({
         title: 'Transferir Datos',
