@@ -1,8 +1,3 @@
-document.getElementById("searchDetail").onclick = () => {
-  const id = document.getElementById("codDetail").value;
-  exportarAPDF(id);
-};
-
 function exportarAPDF(idLiquidation) {
   alert(idLiquidation);
   $.ajax({
@@ -392,3 +387,109 @@ const obtenerTablaTotalValoresImpresion = () => {
       });
   });
 };
+
+
+///exportar a pdf Guia
+function exportarAPDFguia(idLiquidation) {
+  $.ajax({
+    url: "http://localhost/practica/Liquidacion/obtenerDetalleGuia/" + idLiquidation,
+    type: "GET",
+    dataType: "json",
+  }).done(async function (data) {
+    var contenidoDatos = "";
+    
+    // Datos de la guía
+    data.guia.map(function (item, index) {
+      const fila = `
+        <tr>
+          <td>${index + 1}</td>
+          <td>${idLiquidation}</td>
+          <td>${item.guide_code}</td>
+          <td>${item.wet_weight}</td>
+          <td>${item.moisture_percentage}</td>
+          <td>${item.dry_weight}</td>
+        </tr>`;
+      contenidoDatos += fila;
+    });
+
+    const totales = `
+    <tr>
+        <td>Total</td>
+        <td></td>
+        <td></td>
+        <td>${data.guia.reduce((acc, curr) => acc + Number(curr.wet_weight), 0).toFixed(2)}</td>
+        <td></td>
+        <td>${data.guia.reduce((acc, curr) => acc + Number(curr.dry_weight), 0).toFixed(2)}</td>
+    </tr>`;
+    contenidoDatos += totales;
+
+    var ventanaImpresion = window.open("", "_blank");
+
+    // Escribe el contenido en la nueva ventana con diseño adaptado
+    ventanaImpresion.document.write(`
+      <html>
+        <head>
+          <title>Impresión de Liquidación</title>
+          <style>
+            body {
+              background-image: url('http://localhost/practica/assets/images/fondo.jpg'); /* Ajusta esta ruta */
+              background-size: cover;
+              font-family: Arial, sans-serif;
+            }
+            .contenedor {
+              width: 100%;
+              padding: 20px;
+            }
+            .datos-empresa, .datos-cliente {
+              margin-bottom: 15px;
+            }
+            table {
+              width: 100%;
+              border-collapse: collapse;
+            }
+            th, td {
+              border: 1px solid #ddd;
+              padding: 8px;
+              text-align: left;
+            }
+            th {
+              background-color: #f2f2f2;
+            }
+          </style>
+        </head>
+        <body>
+          <img src="http://localhost/practica/assets/images/fondo.jpg"/>
+          <div class="contenedor">
+            <div class="datos-empresa">
+              <h2>Korintigold</h2>
+              <p>Dirección: Calle Falsa 123</p>
+              <p>Teléfono: 555-1234</p>
+            </div>
+            <div class="datos-cliente">
+              <h3>Datos del Cliente</h3>
+              <!-- Inserta aquí los datos del cliente -->
+              <p>Nombre: [Nombre del Cliente]</p>
+              <p>ID: [ID del Cliente]</p>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>N° Guía</th>
+                  <th>Código</th>
+                  <th>Peso Hum (KG)</th>
+                  <th>Humedad (%)</th>
+                  <th>Peso Seco (KG)</th>
+                </tr>
+              </thead>
+              <tbody>${contenidoDatos}</tbody>
+            </table>
+          </div>
+        </body>
+      </html>
+    `);
+    ventanaImpresion.document.close();
+    ventanaImpresion.print();
+    ventanaImpresion.close();
+  });
+}

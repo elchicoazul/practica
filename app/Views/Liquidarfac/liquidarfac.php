@@ -33,17 +33,16 @@
 <div class="row">
 
 
-    <div class="col-lg-6 grid-margin">
+    <div class="col-lg-4 grid-margin">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Tabla de liquidaciones</h4>
+                <h4 class="card-title">Liquidados</h4>
                 <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
                     <!-- Agrega un estilo para limitar la altura y agregar una barra de desplazamiento -->
                     <table class="table tabla-liquidaciones">
                         <thead>
                             <tr>
                                 <th>Id</th>
-                                <th>Nombre_Servicio</th>
                                 <th>Precio</th>
                                 <th>Acción</th>
                             </tr>
@@ -57,10 +56,10 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-6 grid-margin">
+    <div class="col-lg-8 grid-margin">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Tabla de programaciones</h4>
+                <h4 class="card-title">Programaciones</h4>
                 <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
                     <!-- Agrega un estilo para limitar la altura y agregar una barra de desplazamiento -->
                     <table class="table tabla-programaciones-liquidar">
@@ -88,10 +87,10 @@
     <div class="col-lg-12 grid-margin">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Tabla Temporal para liquidar</h4>
+                <h4 class="card-title">Facturar</h4>
                 
                 <!-- Agrega el botón "Liquidar" aquí -->
-                <button class="btn btn-primary mb-3"  onclick="btnTransferirDatosfac()">Liquidar</button>
+                <button class="btn btn-primary mb-3"  onclick="btnTransferirDatosfac()">Facturar</button>
 
                 <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
                     <!-- Agrega un estilo para limitar la altura y agregar una barra de desplazamiento -->

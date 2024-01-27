@@ -8,7 +8,7 @@ class LiquidacionModel extends Model {
     public function FiltrarLiquidacion($data)
     {
         $builder = $this->db->table('liquidation');
-        $builder->select('liquidation.id_guide, liquidation.fecha_create, User.username,price');
+        $builder->select('liquidation.id,liquidation.id_guide, liquidation.fecha_create, User.username,total_liquidation');
         $builder->join('user', 'liquidation.client_id = user.id');
     
         // Construir condiciones de búsqueda
@@ -167,7 +167,7 @@ class LiquidacionModel extends Model {
     }
     public function obtenerDatosGuiaLiquidation($id){
         $builder = $this->db->table('Guide');
-        $builder->select('Guide.guide_code, IngressGuide.wet_weight, IngressGuide.moisture_percentage, IngressGuide.dry_weight');
+        $builder->select('Guide.client_id,Guide.guide_code, IngressGuide.wet_weight, IngressGuide.moisture_percentage, IngressGuide.dry_weight');
         $builder->join('IngressGuide', 'Guide.id = IngressGuide.guide_id');
         $builder->where('Guide.id', $id);;
 

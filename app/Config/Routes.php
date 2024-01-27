@@ -25,6 +25,7 @@ $routes->post('/Liquidacion/actualizarAnalisis/(:any)', 'Liquidacion::actualizar
 $routes->post('/Liquidacion/obtenerTotalValores', 'Liquidacion::obtenerTotalValores');
 $routes->post('/Liquidacion/guardarLiquidacion/(:any)', 'Liquidacion::guardarLiquidacion/$1');
 $routes->get('/Liquidacion/obtenerDetalleLiquidacion/(:any)', 'Liquidacion::obtenerDetalleLiquidacion/$1');
+$routes->get('/Liquidacion/obtenerDetalleGuia/(:any)', 'Liquidacion::obtenerDetalleGuia/$1');
 
 $routes->post('/Recepcion/registrarTemp', 'Guia::registrartemp');
 $routes->get('/Recepcion/obtenerDatos/(:any)', 'Guia::obtenerTodosLosDatos/$1');

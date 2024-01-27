@@ -123,12 +123,12 @@
                                 <th>Nombre</th>
                                 <th>Rol</th>
                                 <th>DNI/RUC</th>
-                                <th>Au_law</th>
-                                <th>Ag_law</th>
-                                <th>Au_fine_to_deliver</th>
-                                <th>AG_fine_to_deliver</th>
-                                <th>Au_discount</th>
-                                <th>Ag_discount</th>
+                                <th>Ley_Oro</th>
+                                <th>Ley_Plata</th>
+                                <th>Oro fino</th>
+                                <th>Plata piña</th>
+                                <th>Oro_desc</th>
+                                <th>Plata_desc</th>
                                 <th>Acción</th>
 
                             </tr>

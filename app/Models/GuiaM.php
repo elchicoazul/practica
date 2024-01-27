@@ -7,7 +7,7 @@ class GuiaM extends Model {
     protected $table = 'guide';
     public function FiltrarGuia($data){
     $builder = $this->db->table('Guide');
-    $builder->select('Guide.guide_code, Guide.date, Guide.shipment_guide, Guide.guideStatus, User.username');
+    $builder->select('guide.id,Guide.guide_code, Guide.date, Guide.shipment_guide, Guide.guideStatus, User.username');
     $builder->join('User', 'Guide.client_id = User.id');
 
     // Construir condiciones de búsqueda

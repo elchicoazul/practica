@@ -20,7 +20,13 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/css/style.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="<?php echo base_url(); ?>/assets/images/favicon.png" />
-    
+    <style>
+    .select2-container .select2-selection--single {
+        height: 35px !important; /* Ajusta la altura según tus necesidades */
+        display: flex !important;
+        align-items: center !important;
+    }
+    </style>
   </head>
   <body>
     <div class="container-scroller">
@@ -84,14 +90,6 @@
             <span class="nav-link">Navigation</span>
           </li>
           <li class="nav-item menu-items">
-            <a class="nav-link" href="/practica">
-              <span class="menu-icon">
-                <i class="mdi mdi-speedometer"></i>
-              </span>
-              <span class="menu-title">Dashboard</span>
-            </a>
-          </li>
-          <li class="nav-item menu-items">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <span class="menu-icon">
                 <i class="mdi mdi-laptop"></i>
@@ -134,12 +132,13 @@
             </a>
           </li>
           <li class="nav-item menu-items">
-            <a class="nav-link" href="pages/icons/mdi.html">
-              <span class="menu-icon">
-                <i class="mdi mdi-contacts"></i>
-              </span>
-              <span class="menu-title">Icons</span>
-            </a>
+              <a class="nav-link" href="<?php echo base_url(); ?>Liquidarfac">
+                  <span class="menu-icon">
+                      <!-- Cambiado el icono a "mdi mdi-cash" -->
+                      <i class="mdi mdi-cash"></i>
+                  </span>
+                  <span class="menu-title">Liquidar Fac</span>
+              </a>
           </li>
           <li class="nav-item menu-items">
             <a class="nav-link" href="<?php echo base_url(); ?>Reportes">
@@ -147,14 +146,6 @@
                 <i class="mdi mdi-file-document-box"></i>
               </span>
               <span class="menu-title">Reportes</span>
-            </a>
-          </li>
-          <li class="nav-item menu-items">
-            <a class="nav-link" href="http://www.bootstrapdash.com/demo/corona-free/jquery/documentation/documentation.html">
-              <span class="menu-icon">
-                <i class="mdi mdi-file-document-box"></i>
-              </span>
-              <span class="menu-title">Documentation</span>
             </a>
           </li>
         </ul>
