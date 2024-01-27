@@ -31,18 +31,6 @@ class ProgramacionM extends Model {
         return $insertId;
     }
 
-
-    public function obtenerTodos($id)
-    {
-
-        
-        $query = $this->db->table('scheduling')
-                            ->where('client_id', $id)
-                            ->where('estado',0)
-                            ->get();
-        return $query->getResultArray();
-    }
-
     public function eliminar($id) {
 
         log_message('info','estamos en eliminar programaciones');
@@ -72,4 +60,107 @@ class ProgramacionM extends Model {
 
         return $this->db->table('scheduling')->where('id', $id)->delete();
     }
+
+    //liquidarfac
+    public function obtenerTodosTemp($id){
+        $query = $this->db->table('scheduling')
+                        ->select('*,scheduling.id as ids')
+                        ->join('product','product.id=scheduling.product_id')
+                        ->where('client_id', $id)
+                        ->where('temp', 0) // Agregar esta condición para obtener solo registros con temp = 0
+                        ->get();
+
+        return $query->getResultArray();
+    }
+
+    public function obtenerbyid($id){
+        $query = $this->db->table('scheduling');
+        $query->join('product', 'product.id = scheduling.product_id');
+
+        $query->select('scheduling.client_id,scheduling.id,name,scheduling.price,scheduling.amount,scheduling.total');
+        $query->where('scheduling.id',$id);
+
+        return $query->get()->getResult(); 
+    }
+
+    //lo usaremos para los dos (prog & liq)
+    public function inserttemp($datos){
+        $query = $this->db->table('temporalfac');
+        $query->insert($datos);
+        return $this->db->InsertId();
+    }
+    public function deletebyid($id) {
+        $query = $this->db->table('temporalfac');
+        $query->where('id',$id);
+        return $query->delete();
+    } 
+
+    //-----------------------
+
+    public function updatetemp($id) {
+        // Actualizar el campo temp a 1 en la tabla scheduling
+        $this->db->table('scheduling')
+                 ->where('id', $id)
+                 ->update(['temp' => 1]);
+    }
+
+    public function updatetempcero($id_scheduling) {
+        // Actualizar el campo temp a 1 en la tabla scheduling
+        $this->db->table('scheduling')
+                 ->where('id', $id_scheduling)
+                 ->update(['temp' => 0]);
+    }
+
+    public function obtenerTemporalFac($id)
+    {
+        $query = $this->db->table('temporalfac')
+                            ->where('id_user', $id)
+                            ->get();
+        return $query->getResultArray();
+    }
+
+
+    //metodos para liquidaciones
+
+    public function obtenerTodosLiqTemp($id){
+        //esto es para la consulta de la tabal liquidar (liquidation)
+        $query = $this->db->table('liquidation')
+                        //->select('*,liquidation.id as ids')
+                        //->join('product','product.id=scheduling.product_id')
+                        ->where('client_id', $id)
+                        ->where('temp', 0) // Agregar esta condición para obtener solo registros con temp = 0
+                        ->get();
+
+        return $query->getResultArray();
+    }
+    public function updatetempceroliq($id_liquidation) {
+        // Actualizar el campo temp a 1 en la tabla scheduling
+        $this->db->table('liquidation')
+                 ->where('id', $id_liquidation)
+                 ->update(['temp' => 0]);
+    }
+    public function updatetempliq($id) {
+        // Actualizar el campo temp a 1 en la tabla liquidation
+        $this->db->table('liquidation')
+                    ->where('id', $id)
+                    ->update(['temp' => 1]);
+    }
+    public function obtenerLiqbyid($id){
+        $query = $this->db->table('liquidation');
+        //$query->join('product', 'product.id = scheduling.product_id');
+        //$query->select('scheduling.client_id,scheduling.id,name,scheduling.price,scheduling.amount,scheduling.total');
+        $query->select('client_id,id,id_guide,price');
+        $query->where('liquidation.id',$id);
+
+        return $query->get()->getResult(); 
+    }
+
+    public function obtenertempid($id){
+        $query = $this->db->table('temporalfac');
+        $query->select('identification');
+        $query->where('id',$id);
+
+        return $query->get()->getResult();
+    }
+
 }

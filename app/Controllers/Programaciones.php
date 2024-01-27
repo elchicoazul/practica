@@ -23,7 +23,8 @@ class Programaciones extends BaseController
             "amount" => $this->request->getPost("cantidad"),
             "price" => $this->request->getPost("price"),
             "total" => $this->request->getPost("total"),
-            "estado" => 0,
+            "status" => 0,
+            "temp" => 0
         ];
 
         $rpta = $model->insertar($datos);   
@@ -38,19 +39,26 @@ class Programaciones extends BaseController
         }
 
     }
-    public function obtenerTodasProgramaciones($id)
+
+    public function obtenerTodasProgramacionesTemp($id)
     {
-
         $ProgramacionModel = new ProgramacionM();
-        log_message('info', 'estamos en controlador configuracion');
-        $programaciones = $ProgramacionModel->obtenerTodos($id);
+        $programaciones = $ProgramacionModel->obtenerTodosTemp($id);
         return $this->response->setJSON($programaciones);
-
     }
+
+    //para obtener los datos de las liquidaciones (podemos cambiar al controlador y modelo de liquidar)
+    public function obtenerTodasLiquidacionesTemp($id)
+    {
+        log_message('info','estamos en obtener liquidaciones controlador');
+        $ProgramacionModel = new ProgramacionM();
+        $liquidaciones = $ProgramacionModel->obtenerTodosLiqTemp($id);
+        return $this->response->setJSON($liquidaciones);
+    }
+    
 
     public function eliminar($id)
     {
-        log_message('info','estamos en eliminar programaciones control');
         
         $model = new ProgramacionM();
 

@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\LiquidacionModel;
+use App\Models\Usuario;
 
 class Liquidacion extends BaseController
 {
@@ -35,7 +36,10 @@ class Liquidacion extends BaseController
                 $final_law = $userData['final_law'];
                 $net_kg = $userData['net_kg'];
                 $dry_weight = $userData['dry_weight'];
-
+                $element_law= $userData['element_law'];
+                $element_to_deliver= $userData['element_to_deliver'];
+                $descuento= $userData['descuento'];
+                $accion_inter_onza = $userData['accion_inter_onza'];
                 $resultado = $liquidacionmodel->guardarTemp([
                     'client_id' => $client_id,
                     'element' => $element,
@@ -44,15 +48,29 @@ class Liquidacion extends BaseController
                     'difference' => $difference,
                     'final_law' => $final_law,
                     'net_kg' => $net_kg,
-                    'dry_weight' => $dry_weight
+                    'dry_weight' => $dry_weight,
+                    'element_law' => $element_law,
+                    'element_to_deliver' => $element_to_deliver,
+                    'accion_inter_onza' => $accion_inter_onza,
+                    'descuento' => $descuento,
                 ]);
             }
         }
-
+        $userId = $this->request->getPost('userId');
+        $serviceDataTemp = $this->request->getPost('services');
+        foreach ($serviceDataTemp as $service) {
+          $name = $service['name'];
+          $price = $service['price'];
+          $resultado = $liquidacionmodel->guardarTempService([
+              'client_id' => $userId,
+              'name' => $name,
+              'price' => $price,
+          ]);
+        }
         if ($resultado>0) {
-            return $this->response->setJSON(['estado' => 200, 'mssg' => 'Producto registrado con éxito']);
+            return $this->response->setJSON(['estado' => 200, 'mssg' => 'Se Genero los Datos con éxito']);
         } else {
-            return $this->response->setJSON(['estado' => 400, 'mssg' => 'Producto no registrado con éxito']);
+            return $this->response->setJSON(['estado' => 400, 'mssg' => 'Error al generar los datos']);
         }
     }
 
@@ -123,5 +141,88 @@ class Liquidacion extends BaseController
         $datos = $liquidacionmodel->obtenerTotalValores();
         return $this->response->setJSON($datos);
     }
-    
+
+    public function guardarLiquidacion($id) {
+        $data = $this->request->getPost('data');
+        $total = $this->request->getPost('total');
+        $liquidacionmodel = new LiquidacionModel();
+        $guia = $liquidacionmodel->obtenerGuiaActualCliente($id);
+        $result = $liquidacionmodel->guardarLiquidacion($id,$guia[0]['id'],$total);
+        foreach ($data as $userData) {
+          $id_liquidation= $result;
+          $client_id = $userData['client_id'];
+          $element = $userData['element'];
+          $office_law = $userData['office_law'];
+          $client_law = $userData['client_law'];
+          $difference = $userData['difference'];
+          $final_law = $userData['final_law'];
+          $net_kg = $userData['net_kg'];
+          $dry_weight = $userData['dry_weight'];
+          $element_law= $userData['element_law'];
+          $element_to_deliver= $userData['element_to_deliver'];
+          $descuento= $userData['descuento'];
+          $accion_inter_onza = $userData['accion_inter_onza'];
+          $liquidacionmodel->guardarLiquidacionDetail([
+              'id_liquidation' => $id_liquidation,
+              'client_id' => $client_id,
+              'element' => $element,
+              'office_law' => $office_law,
+              'client_law' => $client_law,
+              'difference' => $difference,
+              'final_law' => $final_law,
+              'net_kg' => $net_kg,
+              'dry_weight' => $dry_weight,
+              'element_law' => $element_law,
+              'element_to_deliver' => $element_to_deliver,
+              'accion_inter_onza' => $accion_inter_onza,
+              'descuento' => $descuento,
+          ]);
+      }
+      $services = $liquidacionmodel->obtenerServicios($id);
+      foreach ($services as $service) {
+        $liquidationId =  $result;
+        $name = $service['name'];
+        $price = $service['price'];
+        $resultado = $liquidacionmodel->guardarServiceLiquidation([
+            'id_liquidation' => $liquidationId,
+            'name' => $name,
+            'price' => $price,
+        ]);
+      }
+      $liquidacionmodel->eliminarTemp($id);
+      $liquidacionmodel->cambiarEstadoGuide($guia[0]['id']);
+      if ($result) {
+        $datos = ['estado' => 200, 'mssg' => 'Se Registro la Liquidación con éxito : '.$result];
+    } else {
+        $datos =['estado' => 400, 'mssg' => 'Error Al Registrar la Liquidación'];
+    }
+        return $this->response->setJSON($datos);
+    }
+    public function obtenerDetalleLiquidacion($id) {
+      $liquidacionmodel = new LiquidacionModel();
+      $detalle = $liquidacionmodel->obtenerDetalleLiquidacion($id);
+      $servicios = $liquidacionmodel->obtenerServiciosLiquidacion($id);
+      $liquidation = $liquidacionmodel->obtenerLiquidacionBase($id);
+      $guia = $liquidacionmodel->obtenerDatosGuiaLiquidation($liquidation[0]['id_guide']);
+      $datos = [
+        'liquidation' => $liquidation,
+        'detalle' => $detalle,
+        'servicios' => $servicios,
+        'guia' => $guia,
+      ];
+      return $this->response->setJSON($datos);
+    }
+
+    public function obtenerDetalleGuia($id) {
+        log_message('info','detalle guia');
+        $liquidacionmodel = new LiquidacionModel();
+        $guia = $liquidacionmodel->obtenerDatosGuiaLiquidation($id);
+        $usuario = new usuario();
+        $user = $usuario->obtenerusuariobyid($guia[0]['client_id']);
+        $datos = [
+          'guia' => $guia,
+          'usuario'=> $user
+        ];
+        return $this->response->setJSON($datos);
+      }
 }

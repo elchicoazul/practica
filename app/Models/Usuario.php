@@ -4,6 +4,7 @@ class Usuario extends Model {
 
     protected $table = 'user';
     protected $primaryKey = 'id';
+    protected $allowedFields = ['username', 'password', 'role'];
 
     public function insertar($datos){
         $Public = $this->db->table('user');
@@ -31,13 +32,17 @@ class Usuario extends Model {
 
         return $query->getResult();
     }
-
-
-
     public function obtenerTodosUsuarios()
     {
         $query = $this->db->table('user')
                           ->get();
+        return $query->getResultArray();
+    }
+
+    public function obtenerusuariobyid($id){
+        $query = $this->db->table('user')
+        ->where('id',$id)
+        ->get();
         return $query->getResultArray();
     }
 
@@ -54,9 +59,13 @@ class Usuario extends Model {
         $query->where('id', $id); // Asegúrese de que $this->primaryKey esté definido correctamente
         $result = $query->update($datos);
     
-        // Si desea devolver algo específico, como el estado de la operación, puede hacerlo aquí
-        // $result será verdadero si la actualización fue exitosa
         return $result;
+    }
+
+    public function authenticateUser($username, $password)
+    {
+        $Public = $this->db->query("SELECT * FROM  user WHERE username='$username' AND password='$password' ");
+        return $Public->getResult();
     }
 
 }

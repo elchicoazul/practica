@@ -25,7 +25,7 @@
 
 
 <div class="row">
-    <div class="col-md-6 grid-margin stretch-card">
+    <div class="col-md-6 grid-margin">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Registro de Productos</h4>
@@ -55,10 +55,10 @@
     </div>
 
     <!-- muestras -->
-    <div class="col-lg-6 grid-margin stretch-card">
+    <div class="col-lg-6 grid-margin">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Resgistro de Productos</h4>
+                <h4 class="card-title">Lista de Registro de Productos</h4>
                 <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
                     <!-- Agrega un estilo para limitar la altura y agregar una barra de desplazamiento -->
                     <table class="table tabla-productos">

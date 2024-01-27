@@ -91,7 +91,6 @@
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Usuario</th>
                 <th>Producto</th>
                 <th>Cantidad (uds)</th>
                 <th>Total</th>
@@ -108,7 +107,7 @@
     </div>
   </div>
 </div>
-  <script>
+<script>
   $('#search-cliente').select2({
           placeholder: 'Usuario',
           ajax: {
@@ -170,7 +169,7 @@
       $('#total').val(total);
     });
   });
+</script>
 
-
-
+  
 <?= $this->endSection(); ?>

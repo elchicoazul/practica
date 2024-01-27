@@ -44,6 +44,7 @@ CREATE TABLE IngressGuideTemp (
   dry_weight DECIMAL(10, 2),
   FOREIGN KEY (user_id) REFERENCES User(id)
 );
+
 CREATE TABLE IngressGuide (
   id INT AUTO_INCREMENT PRIMARY KEY,
   user_id INT NOT NULL,
@@ -57,29 +58,32 @@ CREATE TABLE IngressGuide (
   FOREIGN KEY (user_id) REFERENCES User(id)
 );
 
-
--- Creación de la tabla de Liquidación
 CREATE TABLE Liquidation (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  client_id INT NOT NULL,
-  reception_id INT NOT NULL,
-  date DATETIME NOT NULL,
+  id  INT(11) NOT NULL AUTO_INCREMENT,
+  client_id INT(11) NOT NULL,
+  fecha_create DATETIME DEFAULT NULL,
+  id_guide INT(11) DEFAULT NULL,
+  total_liquidation DECIMAL(10,2) DEFAULT null,
+  PRIMARY KEY (id)
   FOREIGN KEY (client_id) REFERENCES User(id)
-  -- Aquí se deben agregar campos adicionales según la negociación y su respectivo tipo de dato.
-);
-
+) 
 -- Creación de la tabla de Detalle de Liquidación
 CREATE TABLE LiquidationDetail (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  liquidation_id INT NOT NULL,
+  id_liquidation INT(11) NOT NULL,
+  client_id INT NOT NULL,
   element VARCHAR(255) NOT NULL,
-  office_law DECIMAL(10,2) NOT NULL,
-  client_law DECIMAL(10,2) NOT NULL,
-  difference DECIMAL(10,2) NOT NULL,
-  final_law DECIMAL(10,2) NOT NULL,
+  office_law DECIMAL(10,4) NOT NULL,
+  client_law DECIMAL(10,4) NOT NULL,
+  difference DECIMAL(10,4) NOT NULL,
+  final_law DECIMAL(10,4) NOT NULL,
   net_kg DECIMAL(10,2) NOT NULL,
-  general_law_result DECIMAL(10,2) NOT NULL,
-  FOREIGN KEY (liquidation_id) REFERENCES Liquidation(id)
+  dry_weight DECIMAL(10,2) NOT NULL,
+  element_law DECIMAL(10,4) NOT NULL,
+  element_to_deliver DECIMAL(10,4) NOT NULL,
+  accion_inter_onza DECIMAL(10,2) NOT NULL,
+  descuento DECIMAL(10,2) NOT NULL
+  FOREIGN KEY (id_liquidation) REFERENCES Liquidation(id)
 );
 
 CREATE TABLE LiquidationDetailTemp (
@@ -109,17 +113,20 @@ CREATE TABLE Product (
 );
 
 -- Creación de la tabla de Programación
-CREATE TABLE Scheduling (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  client_id INT NOT NULL,
-  product_id INT NOT NULL,
-  price DECIMAL(10,2), 
-  amount DECIMAL(10,2),
-  total DECIMAL(10,2),
-  status TINYINT,
-  FOREIGN KEY (client_id) REFERENCES User(id),
-  FOREIGN KEY (product_id) REFERENCES Product(id),
-);
+  CREATE TABLE Scheduling (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    client_id INT NOT NULL,
+    product_id INT NOT NULL,
+    price DECIMAL(10,2), 
+    amount DECIMAL(10,2),
+    total DECIMAL(10,2),
+    status TINYINT,
+    FOREIGN KEY (client_id) REFERENCES User(id),
+    FOREIGN KEY (product_id) REFERENCES Product(id),
+  );
+
+
+
 
 -- Creación de la tabla de Saldo de Cuentas
 CREATE TABLE AccountBalance (
@@ -163,3 +170,20 @@ CREATE TABLE DailyChangingValues (
   fine_gold_to_deliver DECIMAL(10,2),
   pine_silver_to_deliver DECIMAL(10,2)
 );
+
+
+CREATE TABLE ServiceLiquidation (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  id_liquidation INT(11) NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  price DECIMAL(10,4) NOT NULL,
+  PRIMARY KEY (id)
+) 
+
+CREATE TABLE ServiceTemp (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  client_id INT(11) NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  price DECIMAL(10,4) NOT NULL,
+  PRIMARY KEY (id)
+)

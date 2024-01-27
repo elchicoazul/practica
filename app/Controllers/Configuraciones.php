@@ -16,13 +16,14 @@ class Configuraciones extends BaseController
         $model = new ConfiguracionM();
 
         $datos = [
+            "name" => $this->request->getPost('name'),
             "value" => $this->request->getPost('value'),
         ];
 
         $rpta = $model->insertar($datos);
         
         if ($rpta>0) {
-            log_message('info', 'Entrando en el método registrar.');
+            log_message('info', 'Entrando en el método registrar controler.');
             return $this->response->setJSON(['estado' => 200, 'mssg' => 'Configuracion registrado con éxito']);
         } else {
             return $this->response->setJSON(['estado' => 202, 'mssg' => 'Configuracion no registrada']);
@@ -32,7 +33,6 @@ class Configuraciones extends BaseController
     public function obtenerTodasConfiguraciones()
     {
         $ConfiguracionModel = new ConfiguracionM();
-        log_message('info', 'estamos en controlador configuracion');
         $configuraciones = $ConfiguracionModel->obtenerTodasConfiguraciones();
         return $this->response->setJSON($configuraciones);
     }
