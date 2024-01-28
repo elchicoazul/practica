@@ -14,30 +14,30 @@ class Programaciones extends BaseController
 
     public function registrar()
     {
-        log_message('info','estaos en controlado programaciones');
+        log_message('info', 'estamos en controlador programaciones');
         $model = new ProgramacionM();
-
+    
         $datos = [
             "client_id" => $this->request->getPost('search_cliente'),
             "product_id" => $this->request->getPost('search_product'),
             "amount" => $this->request->getPost("cantidad"),
             "price" => $this->request->getPost("price"),
             "total" => $this->request->getPost("total"),
-            "status" => 0,
+            "status" => 0, // Asumiendo que estos son valores predeterminados
             "temp" => 0
         ];
-
-        $rpta = $model->insertar($datos);   
-
+    
+        $rpta = $model->insertar($datos);
+        log_message('info',$rpta);
+        
         if ($rpta > 0) {
             $programacionModel = new ProgramacionM();
-            $programaciones = $programacionModel->obtenerTodos($this->request->getPost('search_cliente'));
-
+            $programaciones = $programacionModel->obtenerTodosTemp($this->request->getPost('search_cliente'));
             return $this->response->setJSON(['estado' => 200, 'mssg' => 'Producto registrado con éxito', 'productos' => $programaciones]);
         } else {
+            log_message('info','estamos aqui :(');
             return $this->response->setJSON(['estado' => 202, 'mssg' => 'Producto no registrado']);
         }
-
     }
 
     public function obtenerTodasProgramacionesTemp($id)

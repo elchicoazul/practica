@@ -22,37 +22,41 @@ function registrarProgramacion() {
     swal.fire({
         title: "Guardar registro",
         text: "¿Está seguro de guardar los datos ingresados?",
-        icon: 'question', // 'type' ha sido reemplazado por 'icon' en versiones más recientes de SweetAlert2
+        icon: 'question',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Si, Guardar',
         cancelButtonText: 'No',
     }).then((result) => {
-        if (result.value) {
+        if (result.isConfirmed) { // Cambiado 'result.value' por 'result.isConfirmed' para adaptarse a las versiones más recientes de SweetAlert2
+            var model = {
+                search_cliente: $("#search-cliente").val(), // Asegúrese de que estos selectores coincidan con los IDs de sus elementos de entrada
+                search_product: $("#search-product").val(),
+                cantidad: $("#cantidad").val(),
+                price: $("#price").val(),
+                total: $("#total").val()
+            };
+    
             $.ajax({
-                url: 'http://localhost/practica/Programaciones/registrar', // Asegúrese de que esta ruta sea correcta
+                url: 'http://localhost/practica/Programaciones/registrar',
                 type: "POST",
                 data: model,
                 dataType: 'json'
             }).done(function (data) {
                 if (data.estado == 200) {
                     obtenerDatosProgramacion($("#search-cliente").val());
-                    
                     swal.fire('Registrado!', data.mssg, 'success');
-                    // Restablecer los valores de los campos después del registro exitoso
-                    $("#product-stock").val($("#product-stock").val() - $("#cantidad").val());
+                    $("#product-stock").val($("#product-stock").val() - $("#cantidad").val()); // Actualizar stock
                     $("#cantidad").val('');
                     $("#total").val('');
-                }
-                else {
+                } else {
                     swal.fire('Error!', data.mssg, 'error');
                 }
-            });
-        }
+            });
+        }
     });
 }
-
 
 function obtenerDatosProgramacion(id) {
     $.ajax({
@@ -81,7 +85,6 @@ function obtenerDatosProgramacion(id) {
 }
 
 // para liquidar
-
 function obtenerDatosProgramacionLiquidar(id) {
     $.ajax({
         url: 'http://localhost/practica/Programaciones/obtenerTodasProgramacionesTemp/' + id,
@@ -127,6 +130,7 @@ function tempdelete(id,id_scheduling){
         type: "GET",
         dataType: 'json'
     }).done(function (datos) {
+        console.log(datos);
         obtenerDatosTemporalesFac(datos[0]['client_id']);
         obtenerDatosProgramacionLiquidar(datos[0]['client_id']);
         obtenerDatosLiquidacionLiquidar(datos[0]['client_id']);
@@ -134,6 +138,7 @@ function tempdelete(id,id_scheduling){
 }
 
 function obtenerDatosTemporalesFac(id) {
+    
     $.ajax({
         url: 'http://localhost/practica/Liquidarfac/obtenerDatosTemporalesFac/' + id,
         type: "GET",
@@ -199,7 +204,6 @@ function obtenerDatosTemporalesFac(id) {
     });
 }
 
-
 function eliminarProgramacion(id) { 
     // Confirmación antes de la eliminación
     swal.fire({
@@ -215,7 +219,6 @@ function eliminarProgramacion(id) {
         if (result.value) {
             $.ajax({
                 url: 'http://localhost/practica/Programaciones/eliminar/'+ id, // Ajuste la URL a su ruta de API
-                
                 type: 'POST', // O 'DELETE', dependiendo de su implementación en el servidor
                 success: function(response) {
                     // Comprobar respuesta del servidor

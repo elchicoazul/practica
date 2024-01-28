@@ -15,7 +15,7 @@
                 <div class="form-group">
                     <div class="input-group">
                         <select class="form-control js-example-basic-single" id="cliente" placeholder="Cliente" style="height: 100px;"></select>
-                        <input type="text" class="form-control" id="codigo_client" placeholder="Código" aria-label="Código">
+                        <input hidden type="text" class="form-control" id="codigo_client" placeholder="Código" aria-label="Código">
                     </div>
                 </div>
 
@@ -159,9 +159,7 @@
 </div>
 
 <script>
-    $(document).ready(function () {
-        $('#codigo_client').hide();
-        
+    $(document).ready(function () {        
         // Al cargar la página, establecer la fecha por defecto (hoy) en el campo de fecha
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');

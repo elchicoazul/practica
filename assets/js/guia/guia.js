@@ -1,6 +1,6 @@
 function Temporal() {
   // Validación de campos
-  if ($('#codigo').val() == '') {
+  if ($('#codigo_client').val() == '') {
     swal.fire('Error!', 'Debe  seleccionar un  Cliente', 'error');
     return false;
   }
@@ -37,12 +37,12 @@ function Temporal() {
     pesoHumedo: $('#pesoHumedo').val(),
     humedad: $('#humedad').val(),
     pesoSeco: $('#pesoSeco').val(),
-    codigo: $('#codigo').val(),
+    codigo: $('#codigo_client').val(),
   };
 
   console.log(model);
 
-  id_cod = $('#codigo').val();
+  id_cod = $('#codigo_client').val();
   // Confirmación antes de enviar los datos
   swal
     .fire({
@@ -158,7 +158,7 @@ function eliminarTemporal(id) {
 
 function btnTransferirDatos() {
   // Validación de los campos
-  if ($('#codigo').val() == '') {
+  if ($('#codigo_client').val() == '') {
     swal.fire('Error!', 'Debe seleccionar un Cliente', 'error');
     return false;
   }
@@ -173,7 +173,7 @@ function btnTransferirDatos() {
 
   // Creación del objeto userData
   var userData = {
-    codigo: $('#codigo').val(),
+    codigo: $('#codigo_client').val(),
     codigo_guia: $('#codigo_guia').val(),
     fecha: $('#fecha').val(),
     guia: $('#guia').val(),

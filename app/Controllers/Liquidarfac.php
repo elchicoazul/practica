@@ -38,7 +38,6 @@ class Liquidarfac extends BaseController
 
     //para liquidaciones
     public function tempAddLiq($id){
-        log_message('info','tempaddliq controlador');
         $model = new ProgramacionM();
 
         $respuesta = $model->obtenerLiqbyid($id);
@@ -50,7 +49,7 @@ class Liquidarfac extends BaseController
             //"nombre" => $respuesta[0]->name,
             //"precio" => $respuesta[0]->price,
             //"cantidad" => $respuesta[0]->amount,
-            "total"=>$respuesta[0]->price,
+            "total"=>$respuesta[0]->total_liquidation,
             "identification"=>'L'
         ];
 
@@ -66,12 +65,15 @@ class Liquidarfac extends BaseController
 
         $validador=$model->obtenertempid($id);
 
+        log_message('info',$validador[0]->identification);
+
         if ($validador[0]->identification=='P') {
+
             $datos = $model->obtenerbyid($identi);
             $respuesta = $model->deletebyid($id);
             $model->updatetempcero($identi);
         }else{
-            $datos = $model->obtenerbyid($identi);
+            $datos = $model->obtenerLiqbyid($identi);
             $respuesta = $model->deletebyid($id);
             $model->updatetempceroliq($identi);
         }
@@ -82,7 +84,6 @@ class Liquidarfac extends BaseController
     //para liquidaciones
     public function obtenerDatosTemporalesFac($id)
     {
-        log_message('info','estmaos en el contralador de la tabla temp');
         $ProgramacionModel = new ProgramacionM();
         $programaciones = $ProgramacionModel->obtenerTemporalFac($id);
         return $this->response->setJSON($programaciones);
@@ -91,7 +92,6 @@ class Liquidarfac extends BaseController
     //transfiere los datos de la tabla temporalfac a liquidarfac y detail 
     public function transferirDatos($id_client)
     {
-        log_message('info','estmaos en el contralador transferirdatos');
 
         $temporalModel = new ProgramacionM();
         $liquidacion = new LiquidacionModel();

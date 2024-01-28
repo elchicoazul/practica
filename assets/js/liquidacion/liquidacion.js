@@ -27,6 +27,8 @@ function obtenerLiquidacionData(data) {
     type: "GET",
     dataType: "json",
   }).done(function (datos) {
+
+    console.log(datos);
     const tablaDatosBody = $("#tablaDatos tbody");
     tablaDatosBody.empty();
 
@@ -173,7 +175,6 @@ function guardarLiquidacion(id) {
     const totalLiquidacion = Number(
       document.getElementById("totalLiquidacion").innerHTML
     );
-    alert('estamos en guarda liqu');
     
     $.ajax({
       url: "http://localhost/practica/Liquidacion/obtenerDatos/" + id,

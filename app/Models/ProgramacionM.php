@@ -149,7 +149,7 @@ class ProgramacionM extends Model {
         $query = $this->db->table('liquidation');
         //$query->join('product', 'product.id = scheduling.product_id');
         //$query->select('scheduling.client_id,scheduling.id,name,scheduling.price,scheduling.amount,scheduling.total');
-        $query->select('client_id,id,id_guide,price');
+        $query->select('client_id,id,id_guide,total_liquidation');
         $query->where('liquidation.id',$id);
 
         return $query->get()->getResult(); 

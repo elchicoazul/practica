@@ -37,12 +37,12 @@ class LiquidacionModel extends Model {
     {
         $builder = $this->db->table('Guide');
         $builder->select('Guide.guide_code, IngressGuide.wet_weight, IngressGuide.moisture_percentage, IngressGuide.dry_weight');
-        $builder->join('IngressGuide', 'Guide.client_id = IngressGuide.guide_id');
+        $builder->join('IngressGuide', 'Guide.id = IngressGuide.guide_id');
         $builder->where('Guide.client_id', $clientId);
         $builder->where('Guide.guideStatus', 0);
 
         $query = $builder->get();
-
+        
         return $query->getResultArray();
     } 
 

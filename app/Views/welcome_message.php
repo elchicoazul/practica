@@ -6,4 +6,9 @@
 
 <button>submit</button>
 </form>
+
+<form method="get" action="<?php echo base_url();?>Liquidacion/obtenerDetalleGuia/4">
+
+<button>submit</button>
+</form>
 <?= $this->endSection(); ?>
